@@ -1,0 +1,20 @@
+2017
+			Reading	Prev	Cum	Date	Duedate	Disconnection
+January		2093	2024	69	012317	020217	020717
+February	2151	2093	58
+March		2205	2151	54	032117	033117	040517
+April		2269	2205	64	042217	050217	050817
+May			2326	2269	57	052117	053117	060517
+June		2381	2326	55	062317	070317	071017
+July		2342	2381	51	072217	080117	080717
+August
+September	
+October
+November
+December
+
+			Consumption		Start (2012)
+Account1	50-70			0
+Account2	30-50			0
+Account3	45-65			0
+Account4	10-20			0

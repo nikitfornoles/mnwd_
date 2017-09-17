@@ -1,0 +1,47 @@
+Name:		mnwdtest waterdistrict
+Username:	mnwdtestwaterdistrict@gmail.com
+Password:	Nawasa.MetroNaga2
+Birthday:	August 28, 1979
+Gender:		Other
+Phone No:	+639484641132
+
+Name:		mnwd test
+Username:	mnwdtest@gmail.com
+Password:	Nawasa.MetroNaga2
+Birthday:	August 28, 1979
+Gender:		Other
+Phone No:	+639484641132
+
+Name:		Juan Dela Cruz
+Username:	juan.lorenzo.delacruz1
+Password:	ytrewq1234
+Birthday:	January 1, 1960
+Gender:		Male
+Phone No:	+639484641132
+APP Password:	59af8de5c2a10
+
+Name:		Amy Winehouse
+Username:	amy.winehouse.dbtest
+Password:	lalala789
+Birthday:	February 5, 1975
+Gender:		Female
+Phone No:	+639484641132
+APP Password:	59afc2b127fce
+
+Name:		Audrey Kitching
+Username:	audrey.kitching.dbtest
+Password:	1011ghoul
+Birthday:	January 1, 1980
+Gender:		Female
+Phone No:	+639484641132
+APP Password:	59b9d63845fec
+
+Name:		Byper Buendia
+Username:	byper.buendia.dbtest
+Password:	chicken123
+Birthday:	April 19, 1997
+Gender:		Female
+Phone No:	+639484641132
+
+9-10 17:22:47.794 2444-4099/com.google.android.googlequicksearchbox:search E/ActivityThread: Failed to find provider info for com.google.android.apps.gsa.testing.ui.audio.recorded
+09-10 17:22:52.827 1370-4114/? E/AudioFlinger: not enough memory for AudioTrack size=131296

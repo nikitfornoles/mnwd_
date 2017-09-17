@@ -1,0 +1,4 @@
+db name: id2242052_mnwd
+db user: id2242052_dbmnwd
+db host: localhost
+password: capstone2
