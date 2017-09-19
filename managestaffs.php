@@ -79,7 +79,10 @@
               ($_POST['firstname'] == "" ? $firstnameErr = "First name is required" : $firstname = test_input($_POST['firstname']));
               ($_POST['lastname'] == "" ? $lastnameErr = "Last name is required" : $lastname = test_input($_POST['lastname']));
 
-              if ($_POST['email'] != "") {
+              if ($_POST['email'] == "") {
+                $emailErr = "Email is required";
+              }
+              else {
                 $email = test_input($_POST['email']);
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                   $emailErr = "Invalid email format";
@@ -205,7 +208,7 @@
                     </div>
                   </div>
                 </div>
-
+                
                 <div class="form-group">
                   <center><button type="submit" class="templatemo-blue-button" name="addstaff">Submit</button></center>
                 </div>
