@@ -103,7 +103,7 @@
 
             <?php
               if (isset($_POST['upload'])) {
-                require_once('connect.php');
+                require('connect.php');
                 $userid = $_POST['userid'];
                 
                 if (getimagesize($_FILES['image']['tmp_name']) == FALSE) {
@@ -119,7 +119,7 @@
               }
 
               function saveimage ($name, $image, $userid) {
-                require_once('connect.php');
+                include 'connect.php';
 
                 $msg = "";
                 $query = "INSERT INTO `announcement` (`announcementid`, `announcement`, `isimage`, `imgname`, `date`, `userid`) 
@@ -147,7 +147,7 @@
             <h2 class="margin-bottom-10">View Announcements</h2>
 
             <?php
-              require_once('connect.php'); 
+              include 'connect.php'; 
               $query = "SELECT * FROM `announcement` ORDER BY `date` DESC";
               $result = mysqli_query($dbconn, $query);
               $count = mysqli_num_rows($result);
