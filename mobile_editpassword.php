@@ -53,7 +53,7 @@
 					}
 				}
 				else {
-					echo "New password does not much confirmation. Try again.";
+					echo "New password does not match confirmation. Try again.";
 				}
 			}
 			else {
