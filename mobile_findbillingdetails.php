@@ -17,7 +17,7 @@
 					AND `bill` = '$givenBillamount'";
 			$result = mysqli_query($dbconn, $sql);
 			$row = mysqli_fetch_array($result);
-
+			
 			if (mysqli_num_rows($result) == 1) {
 				echo "account billing details found";
 			}

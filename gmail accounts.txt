@@ -18,7 +18,7 @@ Password:	ytrewq1234
 Birthday:	January 1, 1960
 Gender:		Male
 Phone No:	+639484641132
-APP Password:	59af8de5c2a10
+APP Password:	delaCruz_1
 
 Name:		Amy Winehouse
 Username:	amy.winehouse.dbtest
@@ -42,6 +42,7 @@ Password:	chicken123
 Birthday:	April 19, 1997
 Gender:		Female
 Phone No:	+639484641132
+APP Password:	59c3f920f0c1a
 
 9-10 17:22:47.794 2444-4099/com.google.android.googlequicksearchbox:search E/ActivityThread: Failed to find provider info for com.google.android.apps.gsa.testing.ui.audio.recorded
 09-10 17:22:52.827 1370-4114/? E/AudioFlinger: not enough memory for AudioTrack size=131296

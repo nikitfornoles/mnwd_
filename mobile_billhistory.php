@@ -29,7 +29,7 @@
 				)
 			);
 		}
-
+		
 		//Displaying the array in json format
 		echo json_encode(array('result'=>$result));
 	}
