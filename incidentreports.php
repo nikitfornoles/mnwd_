@@ -29,7 +29,8 @@
     <link href="css/templatemo-style.css" rel="stylesheet">
   </head>
   
-  <body>  
+  <body>
+  <form method="post" action="incidentreport_pdf.php">  
     <!-- Left column -->
     <div class="templatemo-flex-row">
 
@@ -66,6 +67,7 @@
               echo "<div id = 'res' class='alert alert-info' role='alert'> $_GET[msg] </div>";
             }
           ?>
+              <p align="right"><button type="submit">Print pdf</button></p>
 
           <div class="templatemo-content-widget white-bg">
             <h2 class="margin-bottom-10">Incident Reports</h2>
