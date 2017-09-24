@@ -35,6 +35,12 @@ INSERT INTO `user` VALUES
 (4, 'Audrey', 'Kitching', 'concessionaire', NULL, NULL, NULL, 0, 0, 0, 0),
 (5, 'Byper', 'Buendia', 'concessionaire', NULL, NULL, NULL, 0, 0, 0, 0);
 
+/* 
+username: admin0
+password: employeeIT1
+(d33a63e99f64cdd8f17a380ce7c1c79c is the encrypted form of employeeIT1)
+*/
+
 
 CREATE TABLE IF NOT EXISTS `announcement` (
 	`announcementid` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
