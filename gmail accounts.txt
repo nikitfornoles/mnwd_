@@ -11,6 +11,8 @@ Password:	Nawasa.MetroNaga2
 Birthday:	August 28, 1979
 Gender:		Other
 Phone No:	+639484641132
+APP Username: admin0
+APP Password:	employeeIT1
 
 Name:		Juan Dela Cruz
 Username:	juan.lorenzo.delacruz1
