@@ -5,28 +5,34 @@
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$accountnum = test_input($_POST['accountno']);
 
-		if (empty($accountnum)) {
-			echo "Enter account number";
-		}
-		else {
-			$sql = "SELECT * FROM `account` WHERE `accountno` = '$accountnum'";
-			$result = mysqli_query($dbconn, $sql);
+		$sql = "SELECT * FROM `account` WHERE `accountno` = '$accountnum'";
+		$result = mysqli_query($dbconn, $sql);
 
-			if (mysqli_num_rows($result) == 1) {
-				$row = mysqli_fetch_array($result);
-				$activated = $row['activated'];
+		if (mysqli_num_rows($result) == 1) {
+			$row = mysqli_fetch_array($result);
+			$activated = $row['activated'];
+			$userid = $row['userid'];
 
-				if ($activated == 1) {
-					echo "Account number is already registered";
+			$query = "SELECT * FROM `user` WHERE `userid` = $userid";
+			$res = mysqli_query($dbconn, $query);
+			$row = mysqli_fetch_array($res);
+			$registered = $row['registered'];
+
+			if ($registered) {
+				if ($activated) {
+					echo "You are already registered and this account number is already activated. Proceed to login.";
 				}
 				else {
-					$accountid = $row['accountid'];
-					echo "Account ID: $accountid";
+					echo "You are already registered using another account that you had activated. Proceed to login and activate this account.";
 				}
 			}
 			else {
-				echo "account number doesn't exist";
+				$accountid = $row['accountid'];
+				echo "Account ID: $accountid";
 			}
+		}
+		else {
+			echo "account number doesn't exist";
 		}
 	}
 	else {
