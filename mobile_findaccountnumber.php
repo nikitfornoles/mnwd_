@@ -15,8 +15,8 @@
 
 			$query = "SELECT * FROM `user` WHERE `userid` = $userid";
 			$res = mysqli_query($dbconn, $query);
-			$row = mysqli_fetch_array($res);
-			$registered = $row['registered'];
+			$row1 = mysqli_fetch_array($res);
+			$registered = $row1['registered'];
 
 			if ($registered) {
 				if ($activated) {
