@@ -98,8 +98,11 @@
               $result = mysqli_query($dbconn, $query);
               $count = mysqli_num_rows($result);
 
-              echo "<div class='templatemo-content-widget no-padding'><div class='panel panel-default table-responsive'><table class = 'table table-striped table-bordered templatemo-user-table'>";
-              echo "<thead><tr><td>ID</td><td>Bill Date</td><td>Previous</td><td>Current</td><td>CuM</td><td>Bill</td><td>Duedate</td><td>Disconnection</td><td>Account ID</td><td colspan = 2></td></tr></thead>";
+              echo "<div class='templatemo-content-widget no-padding'>";
+              echo "<div class='panel panel-default table-responsive'>";
+              echo "<table class = 'table table-striped table-bordered templatemo-user-table'>";
+              echo "<thead><tr><td>Bill Date</td><td>Account No</td><td>Refno</td><td>Reading</td>";
+              echo "<td>CuM</td><td>Bill</td><td>Duedate</td><td>Disconnection</td></tr></thead>";
               echo "<tbody>";
 
               if ($count == 0) {
@@ -115,6 +118,7 @@
                   $bill = $row['bill'];
                   $duedate = $row['duedate'];
                   $disconnection_date = $row['disconnection_date'];
+                  $refno = $row['refno'];
 
                   $accountid = $row['accountid'];
                   $sql = "SELECT `accountno` FROM `account` WHERE `accountid` = $accountid";
@@ -123,34 +127,22 @@
                   $accountno = $row1 [0];
                   
                   echo "<tr>";
-                  echo "<td> $readingid </td>";
+                  //echo "<td> $readingid </td>";
                   echo "<td> $billingdate </td>";
-                  echo "<td> $previous_reading </td>";
+                  echo "<td> $accountno </td>";
+                  echo "<td> $refno </td>";
+                  //echo "<td> $previous_reading </td>";
                   echo "<td> $present_reading </td>";
                   echo "<td> $consumption </td>";
                   echo "<td> $bill </td>";
                   echo "<td> $duedate </td>";
                   echo "<td> $disconnection_date </td>";
-
-                  echo "<td> $accountno </td>";
-
-                  echo "<td> <a href='' class='btn btn-sm btn-primary'>View</a></td>";
-                  echo "<tr>";
+                  echo "</tr>";
                 }
               }
               echo "</tbody>";
               echo "</table></div></div>";
             ?>
-
-            <form action="deleteannouncement.php" class="templatemo-login-form" method="post" enctype="multipart/form-data">
-              <div class="form-group text-left">
-                <?php
-                  if ($count > 0) {
-                    echo "<button type=submit class=templatemo-blue-button name=delete>Delete All</button>";
-                  }
-                ?>
-              </div>                           
-            </form>
           </div>
 
         </div>
