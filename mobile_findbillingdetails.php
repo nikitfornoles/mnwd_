@@ -4,17 +4,17 @@
 	
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$givenBillingdate = test_input($_POST['billingdate']);
-		$givenBillamount = test_input($_POST['billamount']);
+		$givenReferenceNo = test_input($_POST['referenceno']);
 		$accountid = test_input($_POST['accountid']);
 
-		if (empty($givenBillamount)) {
-			echo "Enter correct bill amount";
+		if (empty($givenReferenceNo)) {
+			echo "Enter correct reference number.";
 		}
 		else {
 			$sql = "SELECT * FROM `reading` 
 					WHERE `billingdate` = '$givenBillingdate' 
 					AND `accountid` = '$accountid' 
-					AND `bill` = '$givenBillamount'";
+					AND `refno` = '$givenReferenceNo'";
 			$result = mysqli_query($dbconn, $sql);
 			$row = mysqli_fetch_array($result);
 			

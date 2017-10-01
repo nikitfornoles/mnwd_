@@ -20,7 +20,7 @@ Google Password:	ytrewq1234
 Birthday:			January 1, 1960
 Gender:				Male
 Phone No:			+639484641132
-APP Password:		delaCruz_1
+APP Password:		59d101841ebf0
 
 Name:				Amy Winehouse
 Username:			amy.winehouse.dbtest

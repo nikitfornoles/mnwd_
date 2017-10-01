@@ -304,3 +304,9 @@ Sa mga Consumidores kan MNWD, hinahagad mi po tabi an saindong kooperasyon na ma
 
 Dios Mabalos po saindo gabos.
 */
+
+/*
+The Metropolitan Naga Water District (MNWD) informs the public that the district does not solicit in any way or form, directly or indirectly, from any individual, group, company or entity.
+
+The general public is hereby advised not to entertain any solicitation from individuals claiming to be a representative of MNWD, or any of its officials and employees. Kindly report instances regarding this matter to 24/7 MNWD Hotlines: (054) 472-1685 / (054) 473-7813 / 0919-648-6365 / 0927-463-1859.
+*/

@@ -25,7 +25,7 @@
 			echo json_encode(array('result'=>$result));
 		}
 		else {
-			echo "There are no bills yet that are associated with this account";
+			echo "There are no bills yet that are associated with this account.";
 		}
 	}
 	else {
