@@ -6,9 +6,6 @@
 		$session_accountid = test_input($_POST['accountid']);
 		$userid = test_input($_POST['userid']);
 
-		//$session_accountid = 1;
-		//$userid = 2;
-
 		$r = array();
 
 		require_once('mobile_notification_accountactivation.php');
