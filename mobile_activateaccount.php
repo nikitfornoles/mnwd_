@@ -4,14 +4,29 @@
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$accountno = test_input($_POST['accountno']);
+		$activation_code = test_input($_POST['activation_code']);
 
-		$sql = "UPDATE `account` SET `activated` = 1 WHERE `accountno` = '$accountno'";
+		$sql = "SELECT * FROM `account` WHERE `accountno` = '$accountno'";
+		$result = mysqli_query($dbconn, $sql);
+		$row = mysqli_fetch_array($result);
+		$accountid = $row['accountid'];
 
-		if (mysqli_query($dbconn, $sql)) {
-			echo "Account successfully activated.";
+		$sql = "SELECT * FROM `account_activation` WHERE `accountid` = $accountid AND `activation_code` = '$activation_code'";
+		$result = mysqli_query($dbconn, $sql);
+		$count = mysqli_num_rows($result);
+
+		if ($count == 1) {
+			$sql = "UPDATE `account` SET `activated` = 1 WHERE `accountno` = '$accountno'";
+
+			if (mysqli_query($dbconn, $sql)) {
+				echo "Account successfully activated.";
+			}
+			else {
+				echo "Error in activating account. Please try again.";
+			}
 		}
 		else {
-			echo "Error in activating account. Please try again.";
+			echo "Wrong activation code";
 		}
 	}
 	else {

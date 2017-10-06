@@ -299,6 +299,13 @@ CREATE TABLE IF NOT EXISTS `reading` (
 	PRIMARY KEY (`readingid`)
 );
 
+CREATE TABLE IF NOT EXISTS `account_activation` (
+	`accountid` int(11) UNIQUE NOT NULL,
+	`activation_code` varchar(6) NOT NULL,
+	FOREIGN KEY (`accountid`) REFERENCES `account` (`accountid`),
+	PRIMARY KEY (`accountid`)
+);
+
 /*
 Sa mga Consumidores kan MNWD, hinahagad mi po tabi an saindong kooperasyon na magtipon nin tubig sa mga oras na makusog an bulos para po may magamit kita encaso mawara o magluya an bulos sa maabot na kapistahan kan satong Ina, Nuestra Senora de Penafrancia; sa Setyembre 9, 2016, Traslascion, asin sa Setyembre 16-18, 2016.
 
