@@ -8,7 +8,7 @@
 		$sql = "DELETE FROM `announcement` WHERE `announcementid` = $id";
 
 		if (mysqli_query($dbconn, $sql)) {
-			$msg = "Announcement successfully deleted";
+			$msg = "Announcement successfully deleted.";
 		}
 		else {
 			$msg = "Error deleting announcement: ".mysqli_error($dbconn);
@@ -20,7 +20,7 @@
 	if(isset($_POST['delete'])) {
 		$sql = "DELETE FROM `announcement`";
 		if (mysqli_query($dbconn, $sql)) {
-			$msg = "Successfully deleted all announcements";
+			$msg = "Successfully deleted all announcements.";
 		}
 		else {
 			$msg = "Error deleting all announcements: ".mysqli_error($dbconn);

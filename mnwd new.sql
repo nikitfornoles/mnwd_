@@ -45,7 +45,6 @@ password: employeeIT1
 CREATE TABLE IF NOT EXISTS `announcement` (
 	`announcementid` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
 	`announcement` longblob NOT NULL,
-	`isimage` tinyint(1) NOT NULL,
 	`imgname` varchar(50),
 	`date` date NOT NULL,
 	`userid` int(11) NOT NULL,

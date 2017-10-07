@@ -1,27 +1,24 @@
 <?php
 	require_once('mobile_connect.php');
 
-	$sql = "SELECT * FROM `announcement` WHERE `isimage` = 0 ORDER BY `date` DESC";
-	$r = mysqli_query($dbconn, $sql);
+	$sql = "SELECT * FROM `announcement` ORDER BY `date` DESC";
+	$r = mysqli_query($dbconn,$sql);
 
-	//creating a blank array
 	$result = array();
+	$http = "http://";
+	$ip = "192.168.1.14";
+	$url = $http . $ip . "/mnwd_/mobile_getImage.php?id=";
 
-	//looping through all the records fetched
 	while ($row = mysqli_fetch_array($r)) {
-		//Pushing  announcementid and announcement in the blank array
-		array_push (
-			$result, 
+		array_push(
+			$result,
 			array(
-				"announcementid" => $row['announcementid'],
-				"announcement" => $row['announcement'],
+				"url" => $url.$row['announcementid'],
 				"date" => $row['date']
 			)
 		);
 	}
 
-	//Displaying the array in json format
-	echo json_encode(array('result'=>$result));
-	
+	echo json_encode(array("result"=>$result));
 	mysqli_close($dbconn);
 ?>

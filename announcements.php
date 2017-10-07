@@ -70,22 +70,6 @@
 
           <div class="templatemo-content-widget white-bg">
             <h2 class="margin-bottom-10">Add Announcement</h2>
-            <form action="addannouncement.php" method="POST" class="templatemo-login-form" enctype="multipart/form-data">
-              <div class="row form-group">
-                <div class="col-lg-12 form-group">                   
-                    <label class="control-label" for="inputNote">Announcement</label>
-                    <textarea class="form-control" id="inputNote" name="txtannouncement" rows="5" placeholder="Your text here..." required autofocus></textarea>
-                    <input type="hidden" name="ann_date" value="">
-                    <input type="hidden" name="userid" value="<?php echo $session_id; ?>">
-                </div>
-              </div>
-
-              <div class="form-group text-left">
-                <button type="submit" class="templatemo-blue-button" name="addannouncement">Submit</button>
-              </div>                           
-            </form>
-
-            <hr>
 
             <form method="POST" class="templatemo-login-form" enctype="multipart/form-data">
               <div class="row form-group">
@@ -122,19 +106,15 @@
                 include 'connect.php';
 
                 $msg = "";
-                $query = "INSERT INTO `announcement` (`announcementid`, `announcement`, `isimage`, `imgname`, `date`, `userid`) 
-                          VALUES ('', '$image', 1, '$name', CURDATE(), $userid)";
+                $query = "INSERT INTO `announcement` (`announcementid`, `announcement`, `imgname`, `date`, `userid`) 
+                          VALUES ('', '$image', '$name', CURDATE(), $userid)";
                 if (mysqli_query($dbconn, $query)) {
-                  if (!isset($_GET['msg'])) {
-                    $msg = "Image successfully uploaded";
+                    $msg = "Image successfully uploaded.";
                     header('Location:announcements.php?msg='.$msg.'');
-                  }
                 }
                 else {
-                  if (!isset($_GET['msg'])) {
-                    $msg = "Image upload failed";
+                    $msg = "Image upload failed.";
                     header('Location:announcements.php?msg='.$msg.'');
-                  }
                 }
                 mysqli_close($dbconn);
               }
@@ -153,7 +133,7 @@
               $count = mysqli_num_rows($result);
 
               echo "<div class='templatemo-content-widget no-padding'><div class='panel panel-default table-responsive'><table class = 'table table-striped table-bordered templatemo-user-table'>";
-              echo "<thead><tr><td>ID</td><td>Announcement</td><td>Date</td><td colspan = 2></td></tr></thead>";
+              echo "<thead><tr><td>Date</td><td>Announcement</td><td colspan = 1></td></tr></thead>";
               echo "<tbody>";
 
               if ($count == 0) {
@@ -162,23 +142,9 @@
               else if ($count > 0) {
                 while ($row = mysqli_fetch_array($result)) {
                   echo "<tr>";
-                  echo "<td> $row[announcementid] </td>";
-
-                  if ($row['isimage'] == 0) {
-                    echo "<td> $row[announcement] </td>";
-                  }
-                  else {
-                    echo '<td> <img src="data:image;base64,'.$row['announcement'].' " width = "80%" height = "80%"> </td>';
-                  }
-
                   echo "<td> $row[date] </td>";
-                  if ($row['isimage'] == 0) {
-                    echo "<td><a href='editannouncementform.php?edit=$row[announcementid]' class='btn btn-sm btn-primary'>Edit</a></td>";
-                    echo "<td><a href='deleteannouncement.php?delete=$row[announcementid]' class='btn btn-sm btn-primary'>Delete</a></td>";
-                  }
-                  else {
-                    echo "<td colspan = 2><a href='deleteannouncement.php?delete=$row[announcementid]' class='btn btn-sm btn-primary'>Delete</a></td>";
-                  }
+                  echo '<td> <img src="data:image;base64,'.$row['announcement'].' " width = "80%" height = "80%"> </td>';
+                  echo "<td><a href='deleteannouncement.php?delete=$row[announcementid]' class='btn btn-sm btn-primary'>Delete</a></td>";
                   echo "</tr>";
                 }
               }

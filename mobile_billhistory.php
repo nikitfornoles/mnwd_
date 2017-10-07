@@ -18,7 +18,7 @@
 			$billamount = $row['bill'];
 			$billamount = number_format((float)$billamount, 3, '.', '');
 
-			//Pushing readingid, billingdate, and consumption in the blank array
+			//Pushing billingdate, consumption and billamount in the blank array
 			array_push(
 				$result, 
 				array(

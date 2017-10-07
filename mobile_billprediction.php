@@ -45,6 +45,7 @@
 
 		$billamount = computeBill ($dbconn, $predicted_usage, $classcode, $min_min, $rangecount, $billamount);
 		$billamount = isSeniorCitizen($seniorcitizen, $predicted_usage, $billamount, $dbconn);
+		$billamount = number_format((float)$billamount, 2, '.', '');
 
 		echo "$latestbilldate~$predicted_usage~$billamount";
 	}
