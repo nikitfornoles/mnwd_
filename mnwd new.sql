@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 	`admin_incidentreport` tinyint(1),
 	`admin_billinfo` tinyint(1),
 	PRIMARY KEY (`userid`)
- );
+);
 
 INSERT INTO `user` VALUES
 (1, 'Eric', 'Zantua', 'admin', 'admin0', 'd33a63e99f64cdd8f17a380ce7c1c79c', 'mnwdtest@gmail.com', 1, 1, 1, 1),

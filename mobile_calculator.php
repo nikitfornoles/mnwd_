@@ -42,6 +42,7 @@
 
 			$billamount = computeBill ($dbconn, $cubicMeterUsed, $classcode, $min_min, $rangecount, $billamount);
 			$billamount = isSeniorCitizen($type, $cubicMeterUsed, $billamount, $dbconn);
+			$billamount = number_format((float)$billamount, 2, '.', '');
 
 			echo "billamount~$billamount";
 		}

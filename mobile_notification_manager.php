@@ -40,7 +40,7 @@
 		}
 
 		$disconnection_date_countdown = -1;
-		if ($curr_date <= $disconnection_date) {
+		if ($curr_date <= $disconnection_date && $due_date_countdown == -1) {
 			$sql = "SELECT DATEDIFF('$disconnection_date', '$curr_date')";
 			$result = mysqli_query($dbconn, $sql);
 			$row = mysqli_fetch_array($result);
