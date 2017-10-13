@@ -79,7 +79,7 @@
               $count = mysqli_num_rows($result);
 
               echo "<div class='templatemo-content-widget no-padding'><div class='panel panel-default table-responsive'><table class = 'table table-striped table-bordered templatemo-user-table'>";
-              echo "<thead><tr><td>ID</td><td>Incident Type</td><td>Account ID</td><td>Description</td><td>Reportdate</td><td colspan = 2></td></tr></thead>";
+              echo "<thead><tr><td>Reportdate</td><td>Incident Type</td><td>Account ID</td><td>Description</td><td colspan = 2></td></tr></thead>";
               echo "<tbody>";
 
               if ($count == 0) {
@@ -89,24 +89,24 @@
               else if ($count > 0) {
                 while ($row = mysqli_fetch_array($result)) {
                   echo "<tr>";
-                  echo "<td> $row[reportid] </td>";
 
                   $incidentid = $row['incidentid'];
                   $incidenttype = "SELECT `incidenttype` FROM `incident` WHERE `incidentid` = $incidentid";
                   $res = mysqli_query ($dbconn, $incidenttype);
                   $rowi = mysqli_fetch_array($res);
                   $incidenttype = $rowi['incidenttype'];
-                  echo "<td> $incidenttype </td>";
+                  
 
                   $accountid = $row['accountid'];
                   $accountno = "SELECT `accountno` FROM `account` WHERE `accountid` = $accountid";
                   $res = mysqli_query ($dbconn, $accountno);
                   $rowa = mysqli_fetch_array($res);
                   $accountno = $rowa['accountno'];
-                  echo "<td> $accountno </td>";
 
-                  echo "<td> $row[description] </td>";
                   echo "<td> $row[reportdate] </td>";
+                  echo "<td> $incidenttype </td>";
+                  echo "<td> $accountno </td>";
+                  echo "<td> $row[description] </td>";
                   echo "<td><a href='viewincident.php?view=$row[reportid]' class='btn btn-sm btn-primary'>View</a></td>";
                   //echo "<td> <a href='' class='btn btn-sm btn-primary'>View</a></td>";
                   echo "</tr>";
