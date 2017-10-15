@@ -20,6 +20,8 @@
 				$present_reading = $row['present_reading'];
 				$consumption = $row['consumption'];
 				$bill = $row['bill'];
+				$billwpenalty = $bill + ($bill * 0.1);
+				$billwpenalty = number_format((float)$billwpenalty, 2, '.', '');
 				$duedate = $row['duedate'];
 				$disconnection_date = $row['disconnection_date'];
 				$refno = $row['refno'];
@@ -51,6 +53,7 @@
 				"present_reading" => $present_reading,
 				"consumption" => $consumption,
 				"billamount" => $bill,
+				"bill_w_penalty" => $billwpenalty,
 				"duedate" => $duedate,
 				"disconnection_date" => $disconnection_date,
 				"refno" => $refno,

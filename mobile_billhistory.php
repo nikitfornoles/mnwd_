@@ -16,7 +16,7 @@
 			$billingdate = $row['billingdate'];
 			$cubic_meter_used = $row['consumption'];
 			$billamount = $row['bill'];
-			$billamount = number_format((float)$billamount, 3, '.', '');
+			$billamount = number_format((float)$billamount, 2, '.', '');
 
 			//Pushing billingdate, consumption and billamount in the blank array
 			array_push(
