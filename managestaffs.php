@@ -108,6 +108,7 @@
                 }
               }
 
+              //all inputs are okay
               if (empty($firstnameErr) && empty($lastnameErr) && empty($emailErr) && empty($moduleErr)) {
                 $usertype = 'staff';
                 $email = ($emailstatus == 0? NULL : $email);

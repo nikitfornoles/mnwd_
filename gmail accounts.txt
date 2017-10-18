@@ -36,7 +36,7 @@ Google Password:	1011ghoul
 Birthday:			January 1, 1980
 Gender:				Female
 Phone No:			+639484641132
-APP Password:		59dfccc10b306
+APP Password:		Abcde_1234
 
 Name:				Byper Buendia
 Username:			byper.buendia.dbtest

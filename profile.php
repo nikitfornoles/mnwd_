@@ -80,46 +80,53 @@
             $lastname = $row['lastname'];
           ?>
 
-          <div class="templatemo-content-widget white-bg">
-            <h2 class="margin-bottom-10">Profile</h2>
-            <p>*Put entry on field/s that you would want to modify.</p>
-            <form action="editprofile.php" class="templatemo-login-form" method="POST" enctype="multipart/form-data">
-              <div class="row form-group">
-                <div class="col-lg-6 col-md-6 form-group">                  
-                    <label for="inputFirstName">First Name</label>
-                    <input type="text" name="firstname" class="form-control" id="inputFirstName" placeholder="<?php echo $firstname; ?>">          
+          <div class="panel panel-default margin-10">
+            <div class="panel-heading">
+              <center><h2 class="text-uppercase">PROFILE</h2></center>
+            </div>
+            <div class="panel-body">
+              <p>*Put entry on field/s that you would want to modify.</p>
+              <form action="editprofile.php" class="templatemo-login-form" method="POST" enctype="multipart/form-data">
+                <div class="row form-group">
+                  <div class="col-lg-6 col-md-6 form-group">                  
+                      <label for="inputFirstName">First Name</label>
+                      <input type="text" name="firstname" class="form-control" id="inputFirstName" placeholder="<?php echo $firstname; ?>">          
+                  </div>
+                  <div class="col-lg-6 col-md-6 form-group">                  
+                      <label for="inputLastName">Last Name</label>
+                      <input type="text" name="lastname" class="form-control" id="inputLastName" placeholder="<?php echo $lastname; ?>">
+                  </div> 
                 </div>
-                <div class="col-lg-6 col-md-6 form-group">                  
-                    <label for="inputLastName">Last Name</label>
-                    <input type="text" name="lastname" class="form-control" id="inputLastName" placeholder="<?php echo $lastname; ?>">
-                </div> 
-              </div>
-              <div class="row form-group">
-                <div class="col-lg-6 col-md-6 form-group">                  
-                    <label for="inputUsername">Username</label>
-                    <input type="text" name="username" class="form-control" id="inputUsername" placeholder="<?php echo "$username"; ?>">
+                <div class="row form-group">
+                  <div class="col-lg-6 col-md-6 form-group">                  
+                      <label for="inputUsername">Username</label>
+                      <input type="text" name="username" class="form-control" id="inputUsername" placeholder="<?php echo "$username"; ?>">
+                  </div>
+                  <div class="col-lg-6 col-md-6 form-group">                  
+                      <label for="inputEmail">Email</label>
+                      <input type="email" name="email" class="form-control" id="inputEmail" placeholder="<?php echo "$email"; ?>">
+                      <input type="hidden" name="userid" value="<?php echo $session_id ;?>">
+                  </div> 
                 </div>
-                <div class="col-lg-6 col-md-6 form-group">                  
-                    <label for="inputEmail">Email</label>
-                    <input type="email" name="email" class="form-control" id="inputEmail" placeholder="<?php echo "$email"; ?>">
-                    <input type="hidden" name="userid" value="<?php echo $session_id ;?>">
-                </div> 
-              </div>
-              <div class="form-group text-center">
-                <input type="submit" value = "Update" name="profileedit" class="templatemo-blue-button">
-              </div>                           
-            </form>
+                <div class="form-group text-center">
+                  <input type="submit" value = "Update" name="profileedit" class="templatemo-blue-button">
+                </div>                           
+              </form>
+          </div>
           </div>
 
           <hr>
 
-          <div class="templatemo-content-widget white-bg">
-            <h2 class="margin-bottom-10">Edit Password</h2>
+          <div class="panel panel-default margin-10">
+            <div class="panel-heading">
+              <center><h2 class="text-uppercase">Edit Password</h2></center>
+            </div>
+            <div class="panel-body">
             <form action="editpassword.php" class="templatemo-login-form" method="POST" enctype="multipart/form-data">
               <div class="row form-group">
                 <div class="col-lg-6 col-md-6 form-group">                  
                     <label for="inputCurrentPassword">Current Password</label>
-                    <input type="password" name="currentpassword" class="form-control highlight" id="inputCurrentPassword" placeholder="<?php for ($i=0; $i<strlen($password); $i++) {echo "*";} ?>" required>
+                    <input type="password" name="currentpassword" class="form-control" id="inputCurrentPassword" placeholder="<?php for ($i=0; $i<strlen($password); $i++) {echo "*";} ?>" required>
                 </div>                
               </div>
               <div class="row form-group">
@@ -135,8 +142,9 @@
               </div>
               <div class="form-group text-center">
                 <input type="submit" value="Update" name="editpassword" class="templatemo-blue-button">
-              </div> 
+              </div>
             </form>
+          </div>
           </div>
             
         </div>
