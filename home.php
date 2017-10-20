@@ -79,11 +79,11 @@
                 <div class="templatemo-flex-row flex-content-row">
 
                   <div class="col-1 col-lg-6 col-md-12">
-                    <div id="pie_chart_div_account" class="templatemo-chart"></div> <!-- Pie chart div -->
+                    <div id="id_account_classification" class="templatemo-chart"></div> <!-- Bar chart div -->
                   </div>
 
                   <div class="col-1 col-lg-6 col-md-12">
-                    <div id="bar_chart_div_account" class="templatemo-chart"></div> <!-- Bar chart div -->
+                    <div id="id_account_activated" class="templatemo-chart"></div> <!-- Bar chart div -->
                   </div>
 
                 </div>
@@ -98,15 +98,14 @@
               <div class="templatemo-content-widget white-bg templatemo-overflow-hidden">
                 <h2 class="text-center">User Info</h2>
                 <i class="fa fa-times"></i>
-                
                 <div class="templatemo-flex-row flex-content-row">
 
                   <div class="col-1 col-lg-6 col-md-12">
-                    <div id="bar_chart_div" class="templatemo-chart"></div> <!-- Bar chart div -->
+                    <div id="id_usertype" class="templatemo-chart"></div> <!-- Pie chart div -->
                   </div>
-
+                  
                   <div class="col-1 col-lg-6 col-md-12">
-                    <div id="pie_chart_div" class="templatemo-chart"></div> <!-- Pie chart div -->
+                    <div id="id_registered_user" class="templatemo-chart"></div> <!-- Pie chart div -->
                   </div>
 
                 </div>                
@@ -125,232 +124,163 @@
     <script src="https://www.google.com/jsapi"></script> <!-- Google Chart -->
     <script type="text/javascript" src="js/templatemo-script.js"></script>      <!-- Templatemo Script -->
 
-    <script>
-      /* Google Chart 
-      -------------------------------------------------------------------*/
-      // Load the Visualization API and the piechart package.
-      google.load('visualization', '1.0', {'packages':['corechart']});
-
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(drawChart); 
-      
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
-
-          // Create the data table.
-          var data = new google.visualization.DataTable();
-          data.addColumn('string', 'Topping');
-          data.addColumn('number', 'Number');
-          data.addRows([
-            ['Residential', 600],
-            ['Commercial', 10],
-            ['Commercial A', 33],
-            ['Commercial B', 140],
-            ['Commercial C', 300],
-            ['Bulk/Wholesale', 15]
-          ]);
-
-          // Set chart options
-          var options = {'title':'Account Classification'};
-
-          // Instantiate and draw our chart, passing in some options.
-          var pieChart = new google.visualization.PieChart(document.getElementById('pie_chart_div_account'));
-          pieChart.draw(data, options);
-      }
-
-      $(document).ready(function(){
-        if($.browser.mozilla) {
-          //refresh page on browser resize
-          // http://www.sitepoint.com/jquery-refresh-page-browser-resize/
-          $(window).bind('resize', function(e)
-          {
-            if (window.RT) clearTimeout(window.RT);
-            window.RT = setTimeout(function()
-            {
-              this.location.reload(false); /* false to get page from cache */
-            }, 200);
-          });      
-        } else {
-          $(window).resize(function(){
-            drawChart();
-          });  
-        }   
-      });
-      
-    </script>
-
-    <script>
-      /* Google Chart 
-      -------------------------------------------------------------------*/
-      // Load the Visualization API and the piechart package.
-      google.load('visualization', '1.0', {'packages':['corechart']});
-
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(drawChart); 
-      
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
-
-          // Create the data table.
-          var data = new google.visualization.DataTable();
-          data.addColumn('string', 'Account Activation');
-          data.addColumn('number', 'Number');
-          data.addRows([
-            ['Activated', 600],
-            ['Not Activated', 3000],
-          ]);
-
-          // Set chart options
-          var options = {'title':'Account Activation'};
-
-          // Instantiate and draw our chart, passing in some options.
-          var barChart = new google.visualization.BarChart(document.getElementById('bar_chart_div_account'));
-          barChart.draw(data, options);
-      }
-
-      $(document).ready(function(){
-        if($.browser.mozilla) {
-          //refresh page on browser resize
-          // http://www.sitepoint.com/jquery-refresh-page-browser-resize/
-          $(window).bind('resize', function(e)
-          {
-            if (window.RT) clearTimeout(window.RT);
-            window.RT = setTimeout(function()
-            {
-              this.location.reload(false); /* false to get page from cache */
-            }, 200);
-          });      
-        } else {
-          $(window).resize(function(){
-            drawChart();
-          });  
-        }   
-      });
-      
-    </script>
-
-
-    <script>
-      /* Google Chart 
-      -------------------------------------------------------------------*/
-      // Load the Visualization API and the piechart package.
-      google.load('visualization', '1.0', {'packages':['corechart']});
-
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(drawChart); 
-      
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
-
-          // Create the data table.
-          var data = new google.visualization.DataTable();
-          data.addColumn('string', 'Topping');
-          data.addColumn('number', 'Number');
-          data.addRows([
-            ['Registered', 600],
-            ['Not Registered', 20000],
-          ]);
-
-          // Set chart options
-          var options = {'title':'User Registration'};
-
-          // Instantiate and draw our chart, passing in some options.
-          var pieChart = new google.visualization.PieChart(document.getElementById('pie_chart_div'));
-          pieChart.draw(data, options);
-
-          var barChart = new google.visualization.BarChart(document.getElementById('bar_chart_div'));
-          barChart.draw(data, options);
-      }
-
-      $(document).ready(function(){
-        if($.browser.mozilla) {
-          //refresh page on browser resize
-          // http://www.sitepoint.com/jquery-refresh-page-browser-resize/
-          $(window).bind('resize', function(e)
-          {
-            if (window.RT) clearTimeout(window.RT);
-            window.RT = setTimeout(function()
-            {
-              this.location.reload(false); /* false to get page from cache */
-            }, 200);
-          });      
-        } else {
-          $(window).resize(function(){
-            drawChart();
-          });  
-        }   
-      });
-      
-    </script>
-    
-
-    <script type="text/javascript" src="jqvmap/jquery.vmap.js"></script>
-    <script type="text/javascript" src="jqvmap/maps/jquery.vmap.world.js"></script>
-    <script type="text/javascript" src="jqvmap/data/jquery.vmap.sampledata.js"></script>
-    <script src="jqvmap/maps/continents/jquery.vmap.asia.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-      
-      function drawMaps(){
-        $('#vmap_world').vectorMap({
-          map: 'world_en',
-          backgroundColor: '#ffffff',
-          color: '#333',
-          hoverOpacity: 0.7,
-          selectedColor: '#666666',
-          enableZoom: true,
-          showTooltip: true,
-          values: sample_data,
-          scaleColors: ['#C8EEFF', '#006491'],
-          normalizeFunction: 'polynomial'
-        });
-        $('#vmap_asia').vectorMap({
-          map: 'asia_en',
-          backgroundColor: '#ffffff',
-          color: '#333333',
-          hoverOpacity: 0.7,
-          selectedColor: '#666666',
-          enableZoom: true,
-          showTooltip: true,
-          values: sample_data,
-          scaleColors: ['#C8EEFF', '#006491'],
-          normalizeFunction: 'polynomial'
-        });
-      } // end function drawMaps
-
-      $(document).ready(function() {
-
-        if($.browser.mozilla) {
-          //refresh page on browser resize
-          // http://www.sitepoint.com/jquery-refresh-page-browser-resize/
-          $(window).bind('resize', function(e)
-          {
-            if (window.RT) clearTimeout(window.RT);
-            window.RT = setTimeout(function()
-            {
-              this.location.reload(false); /* false to get page from cache */
-            }, 200);
-          });      
-        } else {
-          $(window).resize(function(){
-            drawMaps();
-          });  
-        }
-        
-        drawMaps();
-
-      });
-    </script>
-
   </body>
 </html>
 
 <script type="text/javascript">
   $("#res").show().delay(3500).hide(1);
+</script>
+
+<script type="text/javascript">
+  $("#res").show().delay(3500).hide(1);
+</script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<!-- JS -->
+<script src="https://www.google.com/jsapi"></script> <!-- Google Chart -->
+<script type="text/javascript" src="js/templatemo-script.js"></script>      <!-- Templatemo Script -->
+
+<script type="text/javascript">
+  <?php
+    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $query = "SELECT `classcode`, count(*) AS `number` FROM `account` GROUP BY `classcode`";
+    $result = mysqli_query($connect, $query);
+  ?>
+
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Account Classification', 'Count'],
+      <?php
+        while($row = mysqli_fetch_array($result)) {
+          $classcode = $row["classcode"];
+          $sql = "SELECT * FROM `account_classification` WHERE `classcode` = '$classcode'";
+          $result1 = mysqli_query($connect, $sql);
+          $row1 = mysqli_fetch_array($result1);
+          $classification = $row1['classification'];
+          echo "['".$classification."', ".$row["number"]."],";
+        }
+      ?>
+    ]);
+
+    var options = {
+      title: 'Account Classification',
+      //is3D:true,
+      //pieHole: 0.4
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('id_account_classification'));
+    chart.draw(data, options);
+  }
+</script>
+
+<script type="text/javascript">
+  <?php
+    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $query = "SELECT `activated`, count(*) AS `number` FROM `account` GROUP BY `activated`";
+    $result = mysqli_query($connect, $query);
+  ?>
+
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Label', 'Count'],
+      <?php
+        while($row = mysqli_fetch_array($result)) {
+          echo "['";
+          $label = ($row['activated'] ? "Activated" : "Not Activated");
+          echo $label;
+          echo "', ";
+          echo $row["number"];
+          echo "],";
+        }
+      ?>
+    ]);
+
+    var options = {
+      title: 'Account Activation',
+      //is3D:true,
+      //pieHole: 0.4
+    };
+
+    var chart = new google.visualization.BarChart(document.getElementById('id_account_activated'));
+    chart.draw(data, options);
+  }
+</script>
+
+<script type="text/javascript">
+  <?php
+    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $query = "SELECT `registered`, count(*) AS `number` FROM `user` GROUP BY `registered`";
+    $result = mysqli_query($connect, $query);
+  ?>
+
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Registered', 'Number'],
+      <?php
+        while($row = mysqli_fetch_array($result)) {
+
+          echo "['";
+          if ($row['registered'] == 0) {
+            echo "Not Registered";
+          }
+          else {
+            echo "Registered";
+          }
+          echo "', ";
+          echo $row["number"];
+          echo "],";
+        }
+      ?>
+    ]);
+
+    var options = {
+      title: 'Percentage of Registered and Non-registered User',
+      //is3D:true,
+      //pieHole: 0.4
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('id_registered_user'));
+    chart.draw(data, options);
+  }
+</script>
+
+<script type="text/javascript">
+  <?php
+    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $query = "SELECT `usertype`, count(*) AS `number` FROM `user` GROUP BY `usertype`";
+    $result = mysqli_query($connect, $query);
+  ?>
+
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Usertype', 'Number'],
+      <?php
+        while($row = mysqli_fetch_array($result)) {
+          echo "['".$row["usertype"]."', ".$row["number"]."],";
+        }
+      ?>
+    ]);
+
+    var options = {
+      title: 'Usertype',
+      //is3D:true,
+      //pieHole: 0.4
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('id_usertype'));
+    chart.draw(data, options);
+  }
 </script>

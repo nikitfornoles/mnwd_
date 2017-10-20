@@ -13,6 +13,37 @@ CREATE TABLE IF NOT EXISTS `images` (
 );
 */
 
+CREATE TABLE IF NOT EXISTS `employee` (
+	`employeeid` int(11) UNIQUE NOT NULL,
+	`firstname` varchar(50) NOT NULL,
+	`lastname` varchar(50) NOT NULL,
+	PRIMARY KEY (`employeeid`)
+);
+
+INSERT INTO `employee` VALUES
+(675645, 'Juan', 'Dela Cruz'),
+(748362, 'Byper', 'Buendia'),
+(345654, 'Effie', 'Dy');
+
+CREATE TABLE IF NOT EXISTS `module` (
+	`modulename` varchar(20) UNIQUE NOT NULL,
+	PRIMARY KEY (`modulename`)
+);
+
+INSERT INTO `module` VALUES
+('bill info'),
+('incident report'),
+('announcement');
+
+CREATE TABLE IF NOT EXISTS `staffinfo` (
+	`staffinfoid` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
+	`modulename` varchar(20) NOT NULL,
+	`employeeid` int(11) NOT NULL,
+	FOREIGN KEY (`modulename`) REFERENCES `module` (`modulename`),
+	FOREIGN KEY (`employeeid`) REFERENCES `employee` (`employeeid`),
+	PRIMARY KEY (`staffinfoid`)
+);
+
 CREATE TABLE IF NOT EXISTS `user` (
 	`userid` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
 	`firstname` varchar(50) DEFAULT NULL,
@@ -22,25 +53,22 @@ CREATE TABLE IF NOT EXISTS `user` (
 	`password` varchar(35) DEFAULT NULL,
 	`email` varchar(45) UNIQUE DEFAULT NULL,
 	`registered` tinyint(1) NOT NULL,
-	`admin_announcement` tinyint(1),
-	`admin_incidentreport` tinyint(1),
-	`admin_billinfo` tinyint(1),
+	`seniorcitizen` tinyint(1) DEFAULT NULL,
+	`staffinfoid` int(11) DEFAULT NULL,
 	PRIMARY KEY (`userid`)
 );
 
 INSERT INTO `user` VALUES
-(1, 'Eric', 'Zantua', 'admin', 'admin0', 'd33a63e99f64cdd8f17a380ce7c1c79c', 'mnwdtest@gmail.com', 1, 1, 1, 1),
-(2, 'Juan', 'Dela Cruz', 'concessionaire', NULL, NULL, NULL, 0, 0, 0, 0),
-(3, 'Amy', 'Winehouse', 'concessionaire', NULL, NULL, NULL, 0, 0, 0, 0),
-(4, 'Audrey', 'Kitching', 'concessionaire', NULL, NULL, NULL, 0, 0, 0, 0),
-(5, 'Byper', 'Buendia', 'concessionaire', NULL, NULL, NULL, 0, 0, 0, 0);
+(1, 'Eric', 'Zantua', 'admin', 'admin0', 'd33a63e99f64cdd8f17a380ce7c1c79c', 'mnwdtest@gmail.com', 1, 0, NULL),
+(2, 'Audrey', 'Kitching', 'concessionaire', NULL, NULL, NULL, 0, 0, NULL),
+(3, 'Emeterio', 'Aman', 'concessionaire', NULL, NULL, NULL, 0, 0, NULL),
+(4, 'Amy', 'Winehouse', 'concessionaire', NULL, NULL, NULL, 0, 0, NULL);
 
 /* 
 username: admin0
 password: employeeIT1
 (d33a63e99f64cdd8f17a380ce7c1c79c is the encrypted form of employeeIT1)
 */
-
 
 CREATE TABLE IF NOT EXISTS `announcement` (
 	`announcementid` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
@@ -214,15 +242,15 @@ INSERT INTO `min_charge` VALUES
 
 CREATE TABLE IF NOT EXISTS `account` (
 	`accountid` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
-	`accountno` varchar(12) DEFAULT NULL,
+	`accountno` varchar(12) NOT NULL,
 	`address` varchar(80) DEFAULT NULL,
 	`meterno` varchar(12) DEFAULT NULL,
 	`sizeid` int (11) DEFAULT NULL,
 	`status` tinyint(1) DEFAULT NULL,
 	`discounted` tinyint(1) DEFAULT NULL,
 	`discountrate` double(4,2) DEFAULT NULL,
-	`seniorcitizen` tinyint(1) DEFAULT NULL,
-	`classcode` varchar(3) DEFAULT NULL,
+	`classcode` varchar(3) NOT NULL,
+	`businessname` varchar(50) DEFAULT NULL,
 	`userid` int(11) NOT NULL,
 	`activated` tinyint(1) NOT NULL,
 	FOREIGN KEY (`sizeid`) REFERENCES `meter_size` (`sizeid`),
@@ -232,21 +260,19 @@ CREATE TABLE IF NOT EXISTS `account` (
 );
 
 INSERT INTO `account` VALUES 
-(1, '486-12-621', NULL, '94044810', 1, 1, 0, 0.1, 0, 'res', 2, 0),
-(2, '486-12-624', NULL, '94044815', 1, 1, 0, 0.1, 0, 'res', 3, 0),
-(3, '486-12-629', NULL, '94044819', 1, 1, 0, 0.1, 0, 'res', 4, 0),
-(4, '486-12-618', NULL, '94044450', 1, 1, 0, 0.1, 0, 'res', 5, 0),
-(5, '184-12-633', NULL, '09031157', 1, 1, 0, 0.1, 0, 'res', 3, 0),
-(6, '184-12-649', NULL, '09031349', 1, 1, 0, 0.1, 0, 'res', 4, 0),
-(7, '184-12-655', NULL, '09031875', 1, 1, 0, 0.1, 0, 'res', 4, 0);
+(1, '486-12-621', NULL, '94044810', 1, 1, 0, 0.1, 'res', NULL, 2, 0),
+(2, '486-12-624', NULL, '94044815', 1, 1, 0, 0.1, 'res', NULL, 3, 0),
+(3, '486-12-629', NULL, '94044819', 1, 1, 0, 0.1, 'coC', 'Enjoy Realty & Development Corporation', 3, 0),
+(4, '486-12-618', NULL, '94044450', 3, 1, 0, 0.1, 'bul', 'Haciendas de Naga', 3, 0),
+(5, '184-12-633', NULL, '09031157', 1, 1, 0, 0.1, 'res', NULL, 4, 0),
+(6, '184-12-655', NULL, '09031875', 1, 1, 0, 0.1, 'coB', 'Quickfill', 4, 0);
 
 UPDATE `account` SET `address` = 'PH1 Villa Grande Homes Subdivision, Concepcion Grande, Naga City' WHERE `account`.`accountid` = 1;
-UPDATE `account` SET `address` = 'PH2 Villa Grande Homes Subdivision, Concepcion Grande, Naga City' WHERE `account`.`accountid` = 2;
-UPDATE `account` SET `address` = 'PH3 Villa Grande Homes Subdivision, Concepcion Grande, Naga City' WHERE `account`.`accountid` = 3;
-UPDATE `account` SET `address` = 'PH4 Villa Grande Homes Subdivision, Concepcion Grande, Naga City' WHERE `account`.`accountid` = 4;
-UPDATE `account` SET `address` = 'Ateneo Avenue, Bagumbayan Sur, Naga City' WHERE `account`.`accountid` = 5;
-UPDATE `account` SET `address` = 'Ateneo Avenue, Bagumbayan Sur, Naga City' WHERE `account`.`accountid` = 6;
-UPDATE `account` SET `address` = 'Ateneo Avenue, Bagumbayan Sur, Naga City' WHERE `account`.`accountid` = 7;
+UPDATE `account` SET `address` = '21 San Felipe, Zone 5, Naga City' WHERE `account`.`accountid` = 2;
+UPDATE `account` SET `address` = '21 San Felipe, Zone 5, Naga City' WHERE `account`.`accountid` = 3;
+UPDATE `account` SET `address` = 'Km.10 Carolina, Uptown Naga City' WHERE `account`.`accountid` = 4;
+UPDATE `account` SET `address` = 'Zone 6, National Road, Barangay Del Rosario, Naga' WHERE `account`.`accountid` = 5;
+UPDATE `account` SET `address` = 'Zone 6, National Road, Barangay Del Rosario, Naga' WHERE `account`.`accountid` = 6;
 
 CREATE TABLE IF NOT EXISTS `incident` (
  `incidentid` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
@@ -266,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `incident_report` (
 	`reportdate` date NOT NULL,
 	`incidentid` int(11) NOT NULL,
 	`accountid` int(11) NOT NULL,
-	`description` varchar(255) NOT NULL
+	`description` varchar(255) NOT NULL,
 	FOREIGN KEY (`incidentid`) REFERENCES `incident` (`incidentid`),
 	FOREIGN KEY (`accountid`) REFERENCES `account` (`accountid`),
 	PRIMARY KEY (`reportid`)
@@ -305,14 +331,8 @@ CREATE TABLE IF NOT EXISTS `account_activation` (
 	PRIMARY KEY (`accountid`)
 );
 
-/*
-Sa mga Consumidores kan MNWD, hinahagad mi po tabi an saindong kooperasyon na magtipon nin tubig sa mga oras na makusog an bulos para po may magamit kita encaso mawara o magluya an bulos sa maabot na kapistahan kan satong Ina, Nuestra Senora de Penafrancia; sa Setyembre 9, 2016, Traslascion, asin sa Setyembre 16-18, 2016.
-
-Dios Mabalos po saindo gabos.
-*/
-
-/*
-The Metropolitan Naga Water District (MNWD) informs the public that the district does not solicit in any way or form, directly or indirectly, from any individual, group, company or entity.
-
-The general public is hereby advised not to entertain any solicitation from individuals claiming to be a representative of MNWD, or any of its officials and employees. Kindly report instances regarding this matter to 24/7 MNWD Hotlines: (054) 472-1685 / (054) 473-7813 / 0919-648-6365 / 0927-463-1859.
-*/
+CREATE TABLE IF NOT EXISTS `bill_pdf` (
+	`readingid` int(11) NOT NULL,
+	FOREIGN KEY (`readingid`) REFERENCES `reading` (`readingid`),
+	PRIMARY KEY (`readingid`)
+);

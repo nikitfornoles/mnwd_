@@ -11,7 +11,12 @@
 
 		$classcode = $row['classcode'];
 		$sizeid = $row['sizeid'];
-		$seniorcitizen = $row['seniorcitizen'];
+		$userid = $row['userid'];
+
+		$sql1 = "SELECT * FROM `user` WHERE `userid` = $userid";
+		$result1 = mysqli_query($dbconn, $sql1);
+		$row1 = mysqli_fetch_array($result1);
+		$seniorcitizen = $row1['seniorcitizen'];
 
 		$sql = "SELECT * FROM `reading` WHERE `accountid` = $session_accountid ORDER BY `billingdate` DESC LIMIT 6";
 		$result = mysqli_query($dbconn, $sql);

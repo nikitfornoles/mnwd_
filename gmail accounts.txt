@@ -28,7 +28,7 @@ Google Password:	lalala789
 Birthday:			February 5, 1975
 Gender:				Female
 Phone No:			+639484641132
-APP Password:		59afc2b127fce
+APP Password:		
 
 Name:				Audrey Kitching
 Username:			audrey.kitching.dbtest
@@ -45,6 +45,22 @@ Birthday:			April 19, 1997
 Gender:				Female
 Phone No:			+639484641132
 APP Password:		59c3f920f0c1a
+
+Name:				Effie Dy
+Username:			effie.dy.dbtest@gmail.com
+Google Password:	shotgunshutgone
+Birthday:			November 2, 1992
+Gender:				Female
+Phone No:			+639484641132
+APP Password:		
+
+Name:				Emeterio Aman
+Username:			emeterio.aman.dbtest@gmail.com
+Google Password:	boy.Aman
+Birthday:			August 12, 1960
+Gender:				Male
+Phone No:			+639484641132
+APP Password:		
 
 9-10 17:22:47.794 2444-4099/com.google.android.googlequicksearchbox:search E/ActivityThread: Failed to find provider info for com.google.android.apps.gsa.testing.ui.audio.recorded
 09-10 17:22:52.827 1370-4114/? E/AudioFlinger: not enough memory for AudioTrack size=131296

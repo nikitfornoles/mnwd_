@@ -6,7 +6,7 @@
 
 	$result = array();
 	$http = "http://";
-	$ip = "192.168.1.11";
+	$ip = "192.168.1.16";
 	$url = $http . $ip . "/mnwd_/mobile_getImage.php?id=";
 
 	while ($row = mysqli_fetch_array($r)) {

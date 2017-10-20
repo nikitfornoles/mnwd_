@@ -103,11 +103,11 @@ bar, column, line, area, stepped area, bubble, pie, donut, combo, candlestick, h
                 <div class="templatemo-flex-row flex-content-row">
 
                   <div class="col-1 col-lg-6 col-md-12">
-                    <div id="id_registered_user" class="templatemo-chart"></div> <!-- Pie chart div -->
-                  </div>
-
-                  <div class="col-1 col-lg-6 col-md-12">
                     <div id="id_usertype" class="templatemo-chart"></div> <!-- Pie chart div -->
+                  </div>
+                  
+                  <div class="col-1 col-lg-6 col-md-12">
+                    <div id="id_registered_user" class="templatemo-chart"></div> <!-- Pie chart div -->
                   </div>
 
                 </div>                
@@ -124,11 +124,11 @@ bar, column, line, area, stepped area, bubble, pie, donut, combo, candlestick, h
                 <div class="templatemo-flex-row flex-content-row">
 
                   <div class="col-1 col-lg-6 col-md-12">
-                    <div id="gender" class="templatemo-chart"></div> <!-- Pie chart div -->
+                    <div id="age" class="templatemo-chart"></div> <!-- Pie chart div -->
                   </div>
 
                   <div class="col-1 col-lg-6 col-md-12">
-                    <div id="age" class="templatemo-chart"></div> <!-- Pie chart div -->
+                    <div id="gender" class="templatemo-chart"></div> <!-- Pie chart div -->
                   </div>
 
                 </div>                
@@ -262,6 +262,37 @@ bar, column, line, area, stepped area, bubble, pie, donut, combo, candlestick, h
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('id_registered_user'));
+    chart.draw(data, options);
+  }
+</script>
+
+<script type="text/javascript">
+  <?php
+    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $query = "SELECT `usertype`, count(*) AS `number` FROM `user` GROUP BY `usertype`";
+    $result = mysqli_query($connect, $query);
+  ?>
+
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Usertype', 'Number'],
+      <?php
+        while($row = mysqli_fetch_array($result)) {
+          echo "['".$row["usertype"]."', ".$row["number"]."],";
+        }
+      ?>
+    ]);
+
+    var options = {
+      title: 'Usertype',
+      //is3D:true,
+      //pieHole: 0.4
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('id_usertype'));
     chart.draw(data, options);
   }
 </script>

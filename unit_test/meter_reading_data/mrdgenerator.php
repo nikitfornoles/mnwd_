@@ -6,7 +6,7 @@
 	$row = mysqli_fetch_array($result);
 	$account_total = $row[0];
 
-	$billdate = '2012-01-18';
+	$billdate = '2016-01-19';
 	//array_fill(start_index, number of elements to update, value)
 	$previous = array_fill(0, $account_total, 0);
 	$present = array_fill(0, $account_total, 0);
@@ -19,8 +19,8 @@
 		}
 	}
 
-	//January 2012 to October 2017
-	for ($i=0; $i < 70; $i++) { 
+	//January 2012 to November 2017
+	for ($i=0; $i < 24; $i++) { 
 		$duedate = "SELECT DATE_ADD('$billdate', INTERVAL 10 DAY)";
 		$result = mysqli_query($dbconn, $duedate);
 		$row = mysqli_fetch_array($result);
@@ -33,7 +33,7 @@
 
 		list($year, $month, $day) = explode("-", $billdate);
 
-		$pred_rand = array(mt_rand(50, 70), mt_rand(30, 50), mt_rand(45, 65), mt_rand(10, 20), mt_rand(45, 60), mt_rand(30, 55), mt_rand(48, 58));
+		$pred_rand = array(mt_rand(50, 70), mt_rand(30, 50), mt_rand(150, 200), mt_rand(5000, 6000), mt_rand(45, 60), mt_rand(40, 70));
 		for ($j=0; $j < $account_total; $j++) {
 			$present[$j] = $present[$j] + $pred_rand [$j];
 		}
@@ -64,7 +64,7 @@
 			$billamount = $mincharge;
 
 			$billamount = computeBill ($dbconn, $consumption, $classcode, $min_min, $rangecount, $billamount);
-			$billamount = number_format((float)$billamount, 3, '.', '');
+			$billamount = number_format((float)$billamount, 2, '.', '');
 			//*********************************************************************
 
 			$billinfo = $billdate . '~' . $previous[$j] . '~' . $present[$j] . '~' . $consumption . '~' . $duedate . '~' . $disconnection . '~' . $refno[$j] . '~' . $k . '~' . $billamount . PHP_EOL;

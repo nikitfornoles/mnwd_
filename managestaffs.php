@@ -71,9 +71,9 @@
             require_once('connect.php');
             require_once('security_check.php');
 
-            $firstname = $lastname = $email = $module = "";
+            $firstname = $lastname = $email = $module = $modulename = "";
             $firstnameErr = $lastnameErr = $emailErr = $moduleErr = "";
-            $emailstatus = $module_announcement = $module_billinfo = $module_incidentreport = 0;
+            $emailstatus = $module_billinfo = $module_incidentreport = 0;
 
             if(isset($_POST['addstaff'])) {
               ($_POST['firstname'] == "" ? $firstnameErr = "First name is required" : $firstname = test_input($_POST['firstname']));
@@ -98,52 +98,105 @@
               else {
                 $module = test_input($_POST['module']);
                 if ($module == 'announcement') {
-                  $module_announcement = 1;
+                  $modulename = $module;
                 }
                 else if ($module == 'billinfo') {
-                  $module_billinfo = 1;
+                  $modulename = 'bill info';
                 }
                 else if ($module == 'incidentreport') {
-                  $module_incidentreport = 1;
+                  $modulename = 'incident report';
                 }
               }
 
               //all inputs are okay
               if (empty($firstnameErr) && empty($lastnameErr) && empty($emailErr) && empty($moduleErr)) {
-                $usertype = 'staff';
-                $email = ($emailstatus == 0? NULL : $email);
-                require_once('mobile_generatepassword.php');
-                $encpassword = md5($password);
+                $sql = "SELECT * FROM `employee` WHERE `firstname` = '$firstname' AND `lastname` = '$lastname'";
+                $result = mysqli_query($dbconn, $sql);
+                $count = mysqli_num_rows($result);
 
-                # generate unique username
-                # ----------------------------------------------------------------------
-                $username = $lastname . '_';
-                for ($i=0; $i<strlen($firstname); $i++) {
-                  $username = $username . $firstname[$i];
-                  if ($i == 2) {
-                    break;
+                if ($count > 0) {
+                  $row = mysqli_fetch_array($result);
+                  $employeeid = $row['employeeid'];
+                  $firstname = $row['firstname'];
+                  $lastname = $row['lastname'];
+
+                  $usertype = 'staff';
+                  $email = ($emailstatus == 0? NULL : $email);
+                  require_once('mobile_generatepassword.php');
+                  $encpassword = md5($password);
+
+                  # generate unique username
+                  # ----------------------------------------------------------------------
+                  $username = $lastname . '_';
+                  for ($i=0; $i<strlen($firstname); $i++) {
+                    $username = $username . $firstname[$i];
+                    if ($i == 2) {
+                      break;
+                    }
+                  }
+
+                  for ($i=1; $i < 100 ; $i++) {
+                    $username_ = $username . $i;
+
+                    $query = "SELECT * FROM `user` WHERE `username` = '$username_'";
+                    $check = mysqli_fetch_array(mysqli_query($dbconn, $query));
+
+                    if (!isset($check)) {
+                      $username = $username_;
+                      break;
+                    }
+                  }
+                  # ----------------------------------------------------------------------
+
+                  //send generated password to and username to staff's email address
+                  require_once('../phpmailer/PHPMailerAutoload.php');
+                  $mail = new PHPMailer();
+                  $mail -> CharSet =  "utf-8";
+                  $mail -> IsSMTP(); // Set mailer to use SMTP
+                  $mail -> SMTPDebug = 1;  // Enable verbose debug output
+                  $mail -> SMTPAuth = true; // Enable SMTP authentication
+                  $mail -> Username = "mnwdtest@gmail.com"; //Sender's Authentic Email ID
+                  $mail -> Password = "Nawasa.MetroNaga2"; //Sender's Password
+                  $mail -> SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
+                  $mail -> Host = "smtp.gmail.com"; // SMTP 
+                  $mail -> Port = "587"; // TCP port to connect to
+
+                  $mail -> setFrom($mail->Username, 'MNWD');
+                  $mail -> AddAddress("$email" , "Staff"); //Recipient
+
+                  //$mail->addAttachment('path/file.png');         // Add attachments
+
+                  $mail -> Subject = "Login Details";
+                  $mail -> Body = "<p>You may now login using <b>$username</b> as username and <b>$password</b> as password.</p>";
+                  $mail -> ContentType = "text/html";
+
+                  $msg = '';
+                  if ($mail -> Send()) {
+                    $msg = "Login details successfully sent.";
+
+                    //set username and password
+                    $sql = "INSERT INTO `staffinfo` (`staffinfoid`, `modulename`, `employeeid`)
+                            VALUES ('', '$module', $employeeid)";
+
+                    if (mysqli_query($dbconn, $sql)) {
+                      //set username and password
+                      $sql = "INSERT INTO `user` (`userid`, `firstname`, `lastname`, `usertype`, `username`, `password`, `email`, `registered`, `seniorcitizen`, `staffinfoid`)
+                              VALUES ('', '$firstname', '$lastname', $usertype, '$username', '$encpassword', '$email', 1, 0, $staffinfoid)";
+
+                      if (mysqli_query($dbconn, $sql)) {
+                        $msg = 'Staff successfully added';
+                        header('Location:managestaffs.php?msg='.$msg.'');
+                      }
+                    }
+                  }
+                  else{
+                    $msg = "Error sending login details.";
+                    header('Location:managestaffs.php?msg='.$msg.'');
                   }
                 }
 
-                for ($i=1; $i < 100 ; $i++) {
-                  $username_ = $username . $i;
-
-                  $query = "SELECT * FROM `user` WHERE `username` = '$username_'";
-                  $check = mysqli_fetch_array(mysqli_query($dbconn, $query));
-
-                  if (!isset($check)) {
-                    $username = $username_;
-                    break;
-                  }
-                }
-                # ----------------------------------------------------------------------
-                echo $password;
-
-                $sql = "INSERT INTO `user` (`userid`, `firstname`, `lastname`, `usertype`, `username`, `password`, `email`, `registered`, `admin_announcement`, `admin_billinfo`, `admin_incidentreport`)
-                        VALUES ('', '$firstname', '$lastname', '$usertype', '$username', '$encpassword', '$email', 1, $module_announcement, $module_billinfo, $module_incidentreport)";
-
-                if (mysqli_query($dbconn, $sql)) {
-                  $msg = 'Staff successfully added';
+                else {
+                  $msg = 'Employee does not exist';
                   header('Location:managestaffs.php?msg='.$msg.'');
                 } 
               }
@@ -217,8 +270,51 @@
               </form>
             </div>                
           </div>
-          <!-- REGISTRATION FORM ends -->
 
+          <hr>
+
+          <div class="templatemo-content-widget white-bg">
+            <h2 class="margin-bottom-10">Staff Information</h2>
+
+            <?php
+              include 'connect.php';
+              $query = "SELECT * FROM `user` WHERE `usertype` = 'staff'";
+              $result = mysqli_query($dbconn, $query);
+              $count = mysqli_num_rows($result);
+
+              echo "<div class='templatemo-content-widget no-padding'>";
+              echo "<div class='panel panel-default table-responsive'>";
+              echo "<table class = 'table table-striped table-bordered templatemo-user-table'>";
+              echo "<thead><tr><td>First Name</td><td>Last Name</td><td>Assigned Module</td>";
+              echo "</tr></thead> <tbody>";
+
+              if ($count == 0) {
+                echo "<tr><td colspan = 9 align=center> 0 results </td></tr>";
+              }
+              else if ($count > 0) {
+                while ($row = mysqli_fetch_array($result)) {
+                  $firstname = $row['firstname'];
+                  $lastname = $row['lastname'];
+                  $staffinfoid = $row['staffinfoid'];
+
+                  $query = "SELECT * FROM `staffinfo` WHERE `staffinfoid` = $staffinfoid";
+                  $result = mysqli_query($dbconn, $query);
+                  $row = mysqli_fetch_array($result);
+                  $modulename = $row['modulename'];
+                  
+                  echo "<tr>";
+                  //echo "<td> $readingid </td>";
+                  echo "<td> $firstname </td>";
+                  echo "<td> $lastname </td>";
+                  echo "<td> $modulename </td>";
+                  echo "</tr>";
+                }
+              }
+              echo "</tbody>";
+              echo "</table></div></div>";
+            ?>
+          </div>
+          <!-- REGISTRATION FORM ends -->
         </div>
       </div>
     </div>
