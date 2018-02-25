@@ -27,6 +27,19 @@
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/templatemo-style.css" rel="stylesheet">
+
+    <!-- facebox -->
+    <script src="js/jquery-1.11.2.min.js" type="text/javascript"></script>
+    <link href="src/facebox.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="src/facebox.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        $('a[rel*=facebox]').facebox({
+          loadingImage : 'src/loading.gif',
+          closeImage   : 'src/closelabel.png'
+        })
+      })
+    </script>
   </head>
   
   <body>  
@@ -82,6 +95,7 @@
                 $accountid = $row['accountid'];
                 $description = $row['description'];
                 $reportdate = $row['reportdate'];
+                $action_taken = $row['action_taken'];
 
                 $incidenttype = "SELECT `incidenttype` FROM `incident` WHERE `incidentid` = $incidentid";
                 $res = mysqli_query ($dbconn, $incidenttype);
@@ -136,14 +150,19 @@
                     <tr>
                       <td bgcolor="light-blue-bg"><p style="color:white;">Report Date</p></td>
                       <td><?php echo $reportdate; ?></td>                    
-                    </tr>                                
+                    </tr>
+                    <tr>
+                      <td bgcolor="light-blue-bg"><p style="color:white;">Action Taken</p></td>
+                      <td><?php echo $action_taken; ?></td>
+                    </tr>                          
                   </tbody>
                 </table>
               </div>
               </div>
 
               <div class="form-group text-center">
-                <a href="incidentreports.php"><input type="button" type="submit" class="templatemo-blue-button" name="cancel" value="Back"></a>
+                <a rel='facebox' href='edit-action-taken.php?reportid=<?php echo $reportid ?>'><input type="button" type="submit" class="templatemo-blue-button" value="update"></a>
+                <a href="incidentreports.php"><input type="button" type="submit" class="templatemo-blue-button" value="Back"></a>
               </div>  
             </div>
 

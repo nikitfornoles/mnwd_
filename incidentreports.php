@@ -79,7 +79,7 @@
               $count = mysqli_num_rows($result);
 
               echo "<div class='templatemo-content-widget no-padding'><div class='panel panel-default table-responsive'><table class = 'table table-striped table-bordered templatemo-user-table'>";
-              echo "<thead><tr><td>Reportdate</td><td>Incident Type</td><td>Account ID</td><td>Description</td><td colspan = 2></td></tr></thead>";
+              echo "<thead><tr><td>Report Date</td><td>Incident Type</td><td>Account ID</td><td>Description</td><td>Action Taken</td><td colspan = 2></td></tr></thead>";
               echo "<tbody>";
 
               if ($count == 0) {
@@ -107,6 +107,7 @@
                   echo "<td> $incidenttype </td>";
                   echo "<td> $accountno </td>";
                   echo "<td> $row[description] </td>";
+                  echo "<td> $row[action_taken] </td>";
                   echo "<td><a href='viewincident.php?view=$row[reportid]' class='btn btn-sm btn-primary'>View</a></td>";
                   //echo "<td> <a href='' class='btn btn-sm btn-primary'>View</a></td>";
                   echo "</tr>";

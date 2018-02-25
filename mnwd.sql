@@ -295,6 +295,7 @@ CREATE TABLE IF NOT EXISTS `incident_report` (
 	`incidentid` int(11) NOT NULL,
 	`accountid` int(11) NOT NULL,
 	`description` varchar(255) NOT NULL,
+	`action_taken` varchar(255) DEFAULT '',
 	FOREIGN KEY (`incidentid`) REFERENCES `incident` (`incidentid`),
 	FOREIGN KEY (`accountid`) REFERENCES `account` (`accountid`),
 	PRIMARY KEY (`reportid`)
