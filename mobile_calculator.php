@@ -41,10 +41,25 @@
 			$billamount = $mincharge;
 
 			$billamount = computeBill ($dbconn, $cubicMeterUsed, $classcode, $min_min, $rangecount, $billamount);
-			$billamount = isSeniorCitizen($type, $cubicMeterUsed, $billamount, $dbconn);
-			$billamount = number_format((float)$billamount, 2, '.', '');
 
-			echo "billamount~$billamount";
+			list ($billamount, $discount_amount, $discount_rate) = computeDiscount($type, $cubicMeterUsed, $billamount, $dbconn);
+			$billamount = number_format((float)$billamount, 2, '.', '');
+			$discount_amount = number_format((float)$discount_amount, 2, '.', '');
+			$discount_rate = $discount_rate * 100;
+			$discount_rate = $discount_rate . "%";
+
+			//creating a blank array
+			$r = array();
+			array_push(
+				$r, 
+				array(
+					//"readingid" => $readingid,
+					"billamount" => $billamount,
+					"discount_amount" => $discount_amount,
+					"discount_rate" => $discount_rate
+				)
+			);
+			echo json_encode(array('result'=>$r));
 		}
 	}
 	else {

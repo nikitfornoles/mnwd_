@@ -78,10 +78,14 @@
 		return $billamount;
 	}
 
-	function isSeniorCitizen ($type, $cubicMeterUsed, $billamount, $dbconn) {
+	function computeDiscount ($type, $cubicMeterUsed, $billamount, $dbconn) {
+		$discount_amount = 0;
+		$discount_rate = 0;
 		if ($type && $cubicMeterUsed <= 30) {
-			$billamount = $billamount * 0.9;
+			$discount_rate = 0.1;
+			$discount_amount = $billamount * $discount_rate;
+			$billamount = $billamount * (1-$discount_rate);
 		}
-		return $billamount;
+		return array($billamount, $discount_amount, $discount_rate);
 	}
 ?>
