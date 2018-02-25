@@ -73,10 +73,14 @@
 
             <form method="POST" class="templatemo-login-form" enctype="multipart/form-data">
               <div class="row form-group">
-                <div class="col-lg-12">
+                <div class="col-lg-6 col-md-6 form-group">  
                   <label class="control-label templatemo-block">File Input</label>
-                  <input type="file" name="image" id="fileToUpload" class="filestyle" data-buttonName="btn-primary" data-buttonBefore="true" data-icon="false" required> 
-                  <input type="hidden" name="userid" value="<?php echo $session_id; ?>">               
+                  <input type="file" name="image" id="fileToUpload" class="filestyle" data-buttonName="btn-primary" data-buttonBefore="true" data-icon="false" required>         
+                </div>
+                <div class="col-lg-6 col-md-6 form-group">
+                  <label for="expiration_date">Expiration Date</label>
+                  <input type="date" name="expiration_date" id="expiration_date" class="form-control"><br>
+                  <input type="hidden" name="userid" value="<?php echo $session_id; ?>">       
                 </div>
               </div>
 
@@ -89,6 +93,7 @@
               if (isset($_POST['upload'])) {
                 require('connect.php');
                 $userid = $_POST['userid'];
+                $expiration_date = $_POST['expiration_date'];
                 
                 if (getimagesize($_FILES['image']['tmp_name']) == FALSE) {
                   echo "Please select an image.";
@@ -98,16 +103,16 @@
                   $name = mysqli_real_escape_string($dbconn, $_FILES['image']['name']);
                   $image = file_get_contents($image);
                   $image = base64_encode($image);
-                  saveimage($name, $image, $userid);
+                  saveimage($name, $image, $expiration_date, $userid);
                 }
               }
 
-              function saveimage ($name, $image, $userid) {
+              function saveimage ($name, $image, $expiration_date, $userid) {
                 include 'connect.php';
 
                 $msg = "";
-                $query = "INSERT INTO `announcement` (`announcementid`, `announcement`, `imgname`, `date`, `userid`) 
-                          VALUES ('', '$image', '$name', CURDATE(), $userid)";
+                $query = "INSERT INTO `announcement` (`announcementid`, `announcement`, `imgname`, `date`, `expiration_date`, `userid`) 
+                          VALUES ('', '$image', '$name', CURDATE(), '$expiration_date', $userid)";
                 if (mysqli_query($dbconn, $query)) {
                     $msg = "Image successfully uploaded.";
                     header('Location:announcements.php?msg='.$msg.'');
@@ -141,11 +146,27 @@
               }
               else if ($count > 0) {
                 while ($row = mysqli_fetch_array($result)) {
-                  echo "<tr>";
-                  echo "<td> $row[date] </td>";
-                  echo '<td> <img src="data:image;base64,'.$row['announcement'].' " width = "80%" height = "80%"> </td>';
-                  echo "<td><a href='deleteannouncement.php?delete=$row[announcementid]' class='btn btn-sm btn-primary'>Delete</a></td>";
-                  echo "</tr>";
+                  $expiration_date = $row['expiration_date'];
+                  $expiration_date = new DateTime ("$expiration_date");
+
+                  $now = new DateTime();
+                  $now = date("Y-m-d", strtotime('+7 hours'));
+                  $now = new DateTime("$now");
+
+                  $announcementid = $row['announcementid'];
+
+                  if ($expiration_date > $now) {
+                    echo "<tr>";
+                    echo "<td> $row[date] </td>";
+                    echo '<td> <img src="data:image;base64,'.$row['announcement'].' " width = "80%" height = "80%"> </td>';
+                    echo "<td> $row[expiration_date]</td>";
+                    //echo "<td><a href='deleteannouncement.php?delete=$row[announcementid]' class='btn btn-sm btn-primary'>Delete</a></td>";
+                    echo "</tr>";
+                  }
+                  else {
+                    $sql = "DELETE FROM `announcement` WHERE `announcementid` = $announcementid";
+                    mysqli_query($dbconn, $sql);
+                  }
                 }
               }
               echo "</tbody>";

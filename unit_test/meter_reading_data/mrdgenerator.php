@@ -19,8 +19,8 @@
 		}
 	}
 
-	//January 2012 to November 2017
-	for ($i=0; $i < 24; $i++) { 
+	//January 2016 to December 2018
+	for ($i=0; $i < 36; $i++) { 
 		$duedate = "SELECT DATE_ADD('$billdate', INTERVAL 10 DAY)";
 		$result = mysqli_query($dbconn, $duedate);
 		$row = mysqli_fetch_array($result);

@@ -113,6 +113,27 @@
             </div>
           </div>
 
+          <!-- Third row start -->
+          <div class="templatemo-flex-row flex-content-row templatemo-overflow-hidden"> <!-- overflow hidden for iPad mini landscape view-->
+            <div class="col-1 templatemo-overflow-hidden">
+              <div class="templatemo-content-widget white-bg templatemo-overflow-hidden">
+                <h2 class="text-center">Consumption Info</h2>
+                <i class="fa fa-times"></i>
+                <div class="templatemo-flex-row flex-content-row">
+
+                  <div class="col-1 col-lg-6 col-md-12">
+                    <div id="id_consumption_monthly" class="templatemo-chart"></div> <!-- Pie chart div -->
+                  </div>
+                  
+                  <div class="col-1 col-lg-6 col-md-12">
+                    <div id="id_consumption_yearly" class="templatemo-chart"></div> <!-- Pie chart div -->
+                  </div>
+
+                </div>                
+              </div>
+            </div>
+          </div>
+
         </div>
 
       </div>
@@ -246,7 +267,7 @@
     var options = {
       title: 'Percentage of Registered and Non-registered User',
       //is3D:true,
-      //pieHole: 0.4
+      pieHole: 0.4
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('id_registered_user'));
@@ -281,6 +302,68 @@
     };
 
     var chart = new google.visualization.ColumnChart(document.getElementById('id_usertype'));
+    chart.draw(data, options);
+  }
+</script>
+
+<script type="text/javascript">
+  <?php
+    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $query = "SELECT `consumption`, SUM(consumption) AS `cum` FROM `reading` GROUP BY MONTH(`billingdate`)";
+    $result = mysqli_query($connect, $query);
+  ?>
+
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Consumption', 'CuM'],
+      <?php
+        while($row = mysqli_fetch_array($result)) {
+          echo "['".$row["consumption"]."', ".$row["cum"]."],";
+        }
+      ?>
+    ]);
+
+    var options = {
+      title: 'Monthly Water Consumption (in CuM)',
+      curveType: 'function',
+      legend: { position: 'bottom' }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('id_consumption_monthly'));
+    chart.draw(data, options);
+  }
+</script>
+
+<script type="text/javascript">
+  <?php
+    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $query = "SELECT `consumption`, SUM(`consumption`) AS `cum` FROM `reading` GROUP BY YEAR(`billingdate`)";
+    $result = mysqli_query($connect, $query);
+  ?>
+
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Consumption', 'CuM'],
+      <?php
+        while($row = mysqli_fetch_array($result)) {
+          echo "['".$row["consumption"]."', ".$row["cum"]."],";
+        }
+      ?>
+    ]);
+
+    var options = {
+      title: 'Yearly Water Consumption (in CuM)',
+      curveType: 'function',
+      legend: { position: 'bottom' }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('id_consumption_yearly'));
     chart.draw(data, options);
   }
 </script>

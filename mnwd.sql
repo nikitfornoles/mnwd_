@@ -35,15 +35,6 @@ INSERT INTO `module` VALUES
 ('incident report'),
 ('announcement');
 
-CREATE TABLE IF NOT EXISTS `staffinfo` (
-	`staffinfoid` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
-	`modulename` varchar(20) NOT NULL,
-	`employeeid` int(11) NOT NULL,
-	FOREIGN KEY (`modulename`) REFERENCES `module` (`modulename`),
-	FOREIGN KEY (`employeeid`) REFERENCES `employee` (`employeeid`),
-	PRIMARY KEY (`staffinfoid`)
-);
-
 CREATE TABLE IF NOT EXISTS `user` (
 	`userid` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
 	`firstname` varchar(50) DEFAULT NULL,
@@ -54,15 +45,25 @@ CREATE TABLE IF NOT EXISTS `user` (
 	`email` varchar(45) UNIQUE DEFAULT NULL,
 	`registered` tinyint(1) NOT NULL,
 	`seniorcitizen` tinyint(1) DEFAULT NULL,
-	`staffinfoid` int(11) DEFAULT NULL,
 	PRIMARY KEY (`userid`)
 );
 
 INSERT INTO `user` VALUES
-(1, 'Eric', 'Zantua', 'admin', 'admin0', 'd33a63e99f64cdd8f17a380ce7c1c79c', 'mnwdtest@gmail.com', 1, 0, NULL),
-(2, 'Audrey', 'Kitching', 'concessionaire', NULL, NULL, NULL, 0, 0, NULL),
-(3, 'Emeterio', 'Aman', 'concessionaire', NULL, NULL, NULL, 0, 0, NULL),
-(4, 'Amy', 'Winehouse', 'concessionaire', NULL, NULL, NULL, 0, 0, NULL);
+(1, 'Eric', 'Zantua', 'admin', 'admin0', 'd33a63e99f64cdd8f17a380ce7c1c79c', 'mnwdtest@gmail.com', 1, 0),
+(2, 'Audrey', 'Kitching', 'concessionaire', NULL, NULL, NULL, 0, 0),
+(3, 'Emeterio', 'Aman', 'concessionaire', NULL, NULL, NULL, 0, 0),
+(4, 'Amy', 'Winehouse', 'concessionaire', NULL, NULL, NULL, 0, 0);
+
+CREATE TABLE IF NOT EXISTS `staffinfo` (
+	`staffinfoid` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
+	`modulename` varchar(20) NOT NULL,
+	`employeeid` int(11) NOT NULL,
+	`userid` int(11) NOT NULL,
+	FOREIGN KEY (`modulename`) REFERENCES `module` (`modulename`),
+	FOREIGN KEY (`employeeid`) REFERENCES `employee` (`employeeid`),
+	FOREIGN KEY (`userid`) REFERENCES `user` (`userid`),
+	PRIMARY KEY (`staffinfoid`)
+);
 
 /* 
 username: admin0
@@ -75,6 +76,7 @@ CREATE TABLE IF NOT EXISTS `announcement` (
 	`announcement` longblob NOT NULL,
 	`imgname` varchar(50),
 	`date` date NOT NULL,
+	`expiration_date` date,
 	`userid` int(11) NOT NULL,
 	FOREIGN KEY (`userid`) REFERENCES `user` (`userid`),
 	PRIMARY KEY (`announcementid`)

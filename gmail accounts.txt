@@ -14,14 +14,22 @@ Phone No:			+639484641132
 APP Username:		admin0
 APP Password:		employeeIT1
 
-Name:				Juan Dela Cruz
-Username:			juan.lorenzo.delacruz1
-Google Password:	ytrewq1234
-Birthday:			January 1, 1960
-Gender:				Male
+--------------------------------------------
+CONCESSIONAIRE: 1 ACCOUNT
+--------------------------------------------
+Name:				Audrey Kitching
+Username:			audrey.kitching.dbtest
+Google Password:	1011ghoul
+Birthday:			January 1, 1980
+Gender:				Female
 Phone No:			+639484641132
-APP Password:		59e0a6741036a
+APP Password:
+	laptop:		59e84c07c1466
+	000webhost:	Abcde.1234
 
+--------------------------------------------
+CONCESSIONAIRE: 2 ACCOUNTS
+--------------------------------------------
 Name:				Amy Winehouse
 Username:			amy.winehouse.dbtest
 Google Password:	lalala789
@@ -30,30 +38,9 @@ Gender:				Female
 Phone No:			+639484641132
 APP Password:		
 
-Name:				Audrey Kitching
-Username:			audrey.kitching.dbtest
-Google Password:	1011ghoul
-Birthday:			January 1, 1980
-Gender:				Female
-Phone No:			+639484641132
-APP Password:		Abcde_1234
-
-Name:				Byper Buendia
-Username:			byper.buendia.dbtest
-Google Password:	chicken123
-Birthday:			April 19, 1997
-Gender:				Female
-Phone No:			+639484641132
-APP Password:		59c3f920f0c1a
-
-Name:				Effie Dy
-Username:			effie.dy.dbtest@gmail.com
-Google Password:	shotgunshutgone
-Birthday:			November 2, 1992
-Gender:				Female
-Phone No:			+639484641132
-APP Password:		
-
+--------------------------------------------
+CONCESSIONAIRE: 3 ACCOUNTS
+--------------------------------------------
 Name:				Emeterio Aman
 Username:			emeterio.aman.dbtest@gmail.com
 Google Password:	boy.Aman
@@ -61,6 +48,51 @@ Birthday:			August 12, 1960
 Gender:				Male
 Phone No:			+639484641132
 APP Password:		
+	laptop:		
+	000webhost:		59f818da3f1c1
+
+--------------------------------------------
+STAFF: ANNOUNCEMENT
+--------------------------------------------
+Name:				Juan Dela Cruz
+Username:			juan.lorenzo.delacruz1
+Google Password:	ytrewq1234
+Birthday:			January 1, 1960
+Gender:				Male
+Phone No:			+639484641132
+Username:			
+APP Password:		
+	laptop:			59f84d602bb1e
+	000webhost:	
+
+--------------------------------------------
+STAFF: BILL INFORMATION
+--------------------------------------------
+Name:				Byper Buendia
+Username:			byper.buendia.dbtest
+Google Password:	chicken123
+Birthday:			April 19, 1997
+Gender:				Female
+Phone No:			+639484641132
+Username:			Buendia_Byp1
+APP Password:		
+	laptop:			59f8749f21bde
+	000webhost:	
+
+--------------------------------------------
+STAFF: INCIDENT REPORT
+--------------------------------------------
+Name:				Effie Dy
+Username:			effie.dy.dbtest@gmail.com
+Google Password:	shotgunshutgone
+Birthday:			November 2, 1992
+Gender:				Female
+Phone No:			+639484641132
+Username:			
+APP Password:		
+	laptop:		
+	000webhost:	
+
 
 9-10 17:22:47.794 2444-4099/com.google.android.googlequicksearchbox:search E/ActivityThread: Failed to find provider info for com.google.android.apps.gsa.testing.ui.audio.recorded
 09-10 17:22:52.827 1370-4114/? E/AudioFlinger: not enough memory for AudioTrack size=131296

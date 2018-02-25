@@ -68,17 +68,33 @@
           ?>
 
           <?php
-            require_once('connect.php');
-            require_once('security_check.php');
+            require 'connect.php';
+            require 'security_check.php';
 
             $firstname = $lastname = $email = $module = $modulename = "";
             $firstnameErr = $lastnameErr = $emailErr = $moduleErr = "";
             $emailstatus = $module_billinfo = $module_incidentreport = 0;
 
             if(isset($_POST['addstaff'])) {
-              ($_POST['firstname'] == "" ? $firstnameErr = "First name is required" : $firstname = test_input($_POST['firstname']));
-              ($_POST['lastname'] == "" ? $lastnameErr = "Last name is required" : $lastname = test_input($_POST['lastname']));
 
+              /***************    INPUT VALIDATION    *****************/
+              /*--------------------- firstname ----------------------*/
+              if ($_POST['firstname'] == "") {
+                $firstnameErr = "First name is required";
+              }
+              else {
+                $firstname = test_input($_POST['firstname']);
+              }
+
+              /*--------------------- lastname ----------------------*/
+              if ($_POST['lastname'] == "") {
+                $lastnameErr = "Last name is required";
+              }
+              else {
+                $lastname = test_input($_POST['lastname']);
+              }
+
+              /*----------------------- email -----------------------*/
               if ($_POST['email'] == "") {
                 $emailErr = "Email is required";
               }
@@ -92,40 +108,47 @@
                 }
               }
 
+              /*----------------------- module ----------------------*/
               if (empty($_POST['module'])) {
                 $moduleErr = "Module is required";
               }
               else {
                 $module = test_input($_POST['module']);
-                if ($module == 'announcement') {
+                if ($module == "announcement") {
                   $modulename = $module;
                 }
-                else if ($module == 'billinfo') {
-                  $modulename = 'bill info';
+                else if ($module == "billinfo") {
+                  $modulename = "bill info";
                 }
-                else if ($module == 'incidentreport') {
-                  $modulename = 'incident report';
+                else if ($module == "incidentreport") {
+                  $modulename = "incident report";
                 }
               }
+              /***********   END OF INPUT VALIDATION    *************/
 
               //all inputs are okay
               if (empty($firstnameErr) && empty($lastnameErr) && empty($emailErr) && empty($moduleErr)) {
+                //check if it is an employee
                 $sql = "SELECT * FROM `employee` WHERE `firstname` = '$firstname' AND `lastname` = '$lastname'";
                 $result = mysqli_query($dbconn, $sql);
                 $count = mysqli_num_rows($result);
 
-                if ($count > 0) {
+                if ($count == 1) {
+                  //get employee's information
                   $row = mysqli_fetch_array($result);
                   $employeeid = $row['employeeid'];
                   $firstname = $row['firstname'];
                   $lastname = $row['lastname'];
 
-                  $usertype = 'staff';
-                  $email = ($emailstatus == 0? NULL : $email);
+                  //generate a password
                   require_once('mobile_generatepassword.php');
                   $encpassword = md5($password);
 
+                  $usertype = 'staff';
+                  $email = ($emailstatus == 0? NULL : $email);
+
                   # generate unique username
+                  # [Lastname]_[first 3 letters of Firstname][integer]
                   # ----------------------------------------------------------------------
                   $username = $lastname . '_';
                   for ($i=0; $i<strlen($firstname); $i++) {
@@ -146,59 +169,69 @@
                       break;
                     }
                   }
-                  # ----------------------------------------------------------------------
+                  #_______________ END OF USERNAME GENERATION _____________________________
 
-                  //send generated password to and username to staff's email address
+
+                  # SEND GENERATED PASSWORD AND USERNAME TO STAFF'S EMAIL ADDRESS
+                  #________________________________________________________________________
                   require_once('../phpmailer/PHPMailerAutoload.php');
-                  $mail = new PHPMailer();
-                  $mail -> CharSet =  "utf-8";
-                  $mail -> IsSMTP(); // Set mailer to use SMTP
-                  $mail -> SMTPDebug = 1;  // Enable verbose debug output
-                  $mail -> SMTPAuth = true; // Enable SMTP authentication
-                  $mail -> Username = "mnwdtest@gmail.com"; //Sender's Authentic Email ID
-                  $mail -> Password = "Nawasa.MetroNaga2"; //Sender's Password
-                  $mail -> SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
-                  $mail -> Host = "smtp.gmail.com"; // SMTP 
-                  $mail -> Port = "587"; // TCP port to connect to
 
-                  $mail -> setFrom($mail->Username, 'MNWD');
-                  $mail -> AddAddress("$email" , "Staff"); //Recipient
+                  $mail = new PHPMailer(true);
+                  try {
+                    $mail -> CharSet =  "utf-8";
+                    $mail -> IsSMTP(); // Set mailer to use SMTP
+                    $mail -> SMTPDebug = 1;  // Enable verbose debug output
+                    $mail -> SMTPAuth = true; // Enable SMTP authentication
+                    $mail -> Username = "mnwdtest@gmail.com"; //Sender's Authentic Email ID
+                    $mail -> Password = "Nawasa.MetroNaga2"; //Sender's Password
+                    $mail -> SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
+                    $mail -> Host = "smtp.gmail.com"; // SMTP 
+                    $mail -> Port = "587"; // TCP port to connect to
 
-                  //$mail->addAttachment('path/file.png');         // Add attachments
+                    $mail -> setFrom($mail->Username, 'MNWD');
+                    $mail -> AddAddress("$email" , "Staff"); //Recipient
 
-                  $mail -> Subject = "Login Details";
-                  $mail -> Body = "<p>You may now login using <b>$username</b> as username and <b>$password</b> as password.</p>";
-                  $mail -> ContentType = "text/html";
+                    //$mail->addAttachment('path/file.png');         // Add attachments
 
-                  $msg = '';
-                  if ($mail -> Send()) {
-                    $msg = "Login details successfully sent.";
+                    $mail -> Subject = "Login Details";
+                    $mail -> Body = "<p>You may now login using <b>$username</b> as username and <b>$password</b> as password.</p>";
+                    $mail -> ContentType = "text/html";
 
-                    //set username and password
-                    $sql = "INSERT INTO `staffinfo` (`staffinfoid`, `modulename`, `employeeid`)
-                            VALUES ('', '$module', $employeeid)";
+                    $msg = '';
+                    # IF EMAIL WAS SUCCESSFULLY SENT
+                    if ($mail -> send()) {
+                      $msg = "Login details successfully sent.";
 
-                    if (mysqli_query($dbconn, $sql)) {
-                      //set username and password
-                      $sql = "INSERT INTO `user` (`userid`, `firstname`, `lastname`, `usertype`, `username`, `password`, `email`, `registered`, `seniorcitizen`, `staffinfoid`)
-                              VALUES ('', '$firstname', '$lastname', $usertype, '$username', '$encpassword', '$email', 1, 0, $staffinfoid)";
+                      # SET USERNAME AND PASSWORD
+                      $sql = "INSERT INTO `staffinfo` (`staffinfoid`, `modulename`, `employeeid`)
+                              VALUES ('', '$module', $employeeid)";
+                      $result = mysqli_query($dbconn, $sql);
 
-                      if (mysqli_query($dbconn, $sql)) {
-                        $msg = 'Staff successfully added';
-                        header('Location:managestaffs.php?msg='.$msg.'');
+                      if (mysqli_affected_rows($dbconn) == 1) {
+                        $staffinfoid = mysqli_insert_id($dbconn);
+
+                        //set username and password
+                        $sql1 = "INSERT INTO `user` (`userid`, `firstname`, `lastname`, `usertype`, `username`, `password`, `email`, `registered`, `seniorcitizen`, `staffinfoid`)
+                                VALUES ('', '$firstname', '$lastname', '$usertype', '$username', '$encpassword', '$email', 1, 0, $staffinfoid)";
+
+                        if (mysqli_query($dbconn, $sql1)) {
+                          $msg = 'Staff successfully added';
+                          header('Location:managestaffs.php?msg='.$msg.'');
+                        }
                       }
                     }
                   }
-                  else{
-                    $msg = "Error sending login details.";
+                  catch (Exception $e) {
+                    # IF EMAIL WASN'T SUCCESSFULLY SENT TO STAFF'S EMAIL ADDRESS
+                    $msg = "Error sending login details. Mailer Error: " . $mail->ErrorInfo;
                     header('Location:managestaffs.php?msg='.$msg.'');
                   }
+                  #______________ END OF CODE BLOCK FOR SENDING EMAIL _____________________
                 }
-
                 else {
                   $msg = 'Employee does not exist';
                   header('Location:managestaffs.php?msg='.$msg.'');
-                } 
+                }
               }
             }
             mysqli_close($dbconn);
@@ -297,10 +330,10 @@
                   $lastname = $row['lastname'];
                   $staffinfoid = $row['staffinfoid'];
 
-                  $query = "SELECT * FROM `staffinfo` WHERE `staffinfoid` = $staffinfoid";
-                  $result = mysqli_query($dbconn, $query);
-                  $row = mysqli_fetch_array($result);
-                  $modulename = $row['modulename'];
+                  $query1 = "SELECT * FROM `staffinfo` WHERE `staffinfoid` = $staffinfoid";
+                  $result1 = mysqli_query($dbconn, $query1);
+                  $row1 = mysqli_fetch_array($result1);
+                  $modulename = $row1['modulename'];
                   
                   echo "<tr>";
                   //echo "<td> $readingid </td>";

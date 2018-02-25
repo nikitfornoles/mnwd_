@@ -7,6 +7,7 @@
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$accountid = test_input($_POST['accountid']);
 		$ip = test_input($_POST['ip']);
+		$port = test_input($_POST['port']);
 
 		$sql = "SELECT * FROM `reading` WHERE `accountid` = $accountid ORDER BY `billingdate` DESC LIMIT 2";
 		$result = mysqli_query($dbconn, $sql);
@@ -206,7 +207,7 @@
 
 		$sql = "SELECT * FROM `bill_pdf` WHERE `readingid` = $readingid";
 		$check = mysqli_fetch_array(mysqli_query($dbconn,$sql));
-		$url = $http . $ip . $directory . $filename;
+		$url = $http . $ip . ":" . $port . $directory . $filename;
 
 		if (!isset($check)) {
 			$sql = "INSERT INTO `bill_pdf` (`readingid`) VALUES ($readingid)";
