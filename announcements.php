@@ -79,7 +79,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 form-group">
                   <label for="expiration_date">Expiration Date</label>
-                  <input type="date" name="expiration_date" id="expiration_date" class="form-control"><br>
+                  <input type="date" name="expiration_date" id="expiration_date" class="form-control" required><br>
                   <input type="hidden" name="userid" value="<?php echo $session_id; ?>">       
                 </div>
               </div>
@@ -133,12 +133,12 @@
 
             <?php
               include 'connect.php'; 
-              $query = "SELECT * FROM `announcement` ORDER BY `date` DESC";
+              $query = "SELECT * FROM `announcement` ORDER BY `expiration_date` ASC";
               $result = mysqli_query($dbconn, $query);
               $count = mysqli_num_rows($result);
 
               echo "<div class='templatemo-content-widget no-padding'><div class='panel panel-default table-responsive'><table class = 'table table-striped table-bordered templatemo-user-table'>";
-              echo "<thead><tr><td>Date</td><td>Announcement</td><td colspan = 1></td></tr></thead>";
+              echo "<thead><tr><td>Announcement</td><td>Expiration Date</td></tr></thead>";
               echo "<tbody>";
 
               if ($count == 0) {
@@ -157,10 +157,8 @@
 
                   if ($expiration_date > $now) {
                     echo "<tr>";
-                    echo "<td> $row[date] </td>";
                     echo '<td> <img src="data:image;base64,'.$row['announcement'].' " width = "80%" height = "80%"> </td>';
-                    echo "<td> $row[expiration_date]</td>";
-                    //echo "<td><a href='deleteannouncement.php?delete=$row[announcementid]' class='btn btn-sm btn-primary'>Delete</a></td>";
+                    echo "<td> $row[expiration_date] </td>";
                     echo "</tr>";
                   }
                   else {
@@ -172,17 +170,6 @@
               echo "</tbody>";
               echo "</table></div></div>";
             ?>
-
-            <form action="deleteannouncement.php" class="templatemo-login-form" method="post" enctype="multipart/form-data">
-              <div class="form-group text-left">
-              <?php
-                if ($count > 0) {
-                  echo "<button type=submit class=templatemo-blue-button name=delete>Delete All</button>";
-                }
-              ?>
-              </div>                           
-            </form>
-
           </div>
 
         </div>

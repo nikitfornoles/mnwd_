@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `announcement` (
 	`announcement` longblob NOT NULL,
 	`imgname` varchar(50),
 	`date` date NOT NULL,
-	`expiration_date` date,
+	`expiration_date` date NOT NULL,
 	`userid` int(11) NOT NULL,
 	FOREIGN KEY (`userid`) REFERENCES `user` (`userid`),
 	PRIMARY KEY (`announcementid`)
