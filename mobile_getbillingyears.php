@@ -4,9 +4,8 @@
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$accountid = test_input($_POST['accountid']);
-		$billingyear = test_input($_POST['billingyear']);
 
-		$sql = "SELECT * FROM `reading` WHERE `accountid` = $accountid AND (SELECT EXTRACT(YEAR FROM `billingdate`) = $billingyear) ORDER BY `billingdate` DESC";
+		$sql = "SELECT DISTINCT (SELECT EXTRACT(YEAR FROM `billingdate`)) FROM `reading` WHERE `accountid` = $accountid ORDER BY `billingdate` DESC";
 		$r = mysqli_query($dbconn, $sql);
 
 		//creating a blank array
@@ -14,19 +13,13 @@
 
 		//looping through all the records fetched
 		while ($row = mysqli_fetch_array($r)) {
-			$billingdate = $row['billingdate'];
-			$cubic_meter_used = $row['consumption'];
-			$billamount = $row['bill'];
-			$billamount = number_format((float)$billamount, 2, '.', '');
+			$billingyear = $row[0];
 
 			//Pushing billingdate, consumption and billamount in the blank array
 			array_push(
 				$result, 
 				array(
-					//"readingid" => $readingid,
-					"billingdate" => $billingdate,
-					"consumption" => $cubic_meter_used,
-					"billamount" => $billamount
+					"billingyear" => $billingyear
 				)
 			);
 		}
