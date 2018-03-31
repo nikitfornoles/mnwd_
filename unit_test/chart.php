@@ -328,6 +328,7 @@ bar, column, line, area, stepped area, bubble, pie, donut, combo, candlestick, h
   }
 </script>
 
+<!--
 <script type="text/javascript">
   <?php
     $connect = mysqli_connect("localhost", "root", "", "test");
@@ -356,5 +357,37 @@ bar, column, line, area, stepped area, bubble, pie, donut, combo, candlestick, h
 
     var chart = new google.visualization.PieChart(document.getElementById('age'));
     chart.draw(data, options);
+  }
+</script>
+-->
+
+<script type="text/javascript">
+  <?php
+    $connect = mysqli_connect("localhost", "root", "", "helpmate");
+    $query = "SELECT `usertype`, count(*) AS `number` FROM `user` GROUP BY `usertype`";
+    $result = mysqli_query($connect, $query);
+  ?>
+
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var pieChartData = google.visualization.arrayToDataTable([
+      ['User Type', 'Count'],
+      <?php
+        while($row = mysqli_fetch_array($result)) {
+          echo "['".$row["usertype"]."', ".$row["number"]."],";
+        }
+      ?>
+    ]);
+
+    var options = {
+      title: 'User Type',
+      //is3D:true,
+      //pieHole: 0.4
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('age'));
+    chart.draw(pieChartData, options);
   }
 </script>

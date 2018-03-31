@@ -17,13 +17,14 @@ CREATE TABLE IF NOT EXISTS `employee` (
 	`employeeid` int(11) UNIQUE NOT NULL,
 	`firstname` varchar(50) NOT NULL,
 	`lastname` varchar(50) NOT NULL,
+	`email` varchar(45) NOT NULL,
 	PRIMARY KEY (`employeeid`)
 );
 
 INSERT INTO `employee` VALUES
-(675645, 'Juan', 'Dela Cruz'),
-(748362, 'Byper', 'Buendia'),
-(345654, 'Effie', 'Dy');
+(675645, 'Juan', 'Dela Cruz', 'juan.lorenzo.delacruz1@gmail.com'),
+(748362, 'Byper', 'Buendia', 'byper.buendia.dbtest@gmail.com'),
+(345654, 'Effie', 'Dy', 'effie.dy.dbtest@gmail.com');
 
 CREATE TABLE IF NOT EXISTS `module` (
 	`modulename` varchar(20) UNIQUE NOT NULL,
