@@ -79,7 +79,7 @@
               echo "<div class='templatemo-content-widget no-padding'>";
               echo "<div class='panel panel-default table-responsive'>";
               echo "<table class = 'table table-striped table-bordered templatemo-user-table'>";
-              echo "<thead><tr><td>Employee ID</td><td>First Name</td><td>Last Name</td><td>Assigned Module</td>";
+              echo "<thead><tr><td>Employee ID</td><td>First Name</td><td>Last Name</td><td>Email</td><td>Assigned Module</td>";
               echo "</tr></thead> <tbody>";
 
               if ($count == 0) {
@@ -90,6 +90,7 @@
                   $userID = $row['userid'];
                   $firstname = $row['firstname'];
                   $lastname = $row['lastname'];
+                  $email = $row['email'];
 
                   $query1 = "SELECT * FROM `staffinfo` WHERE `userid` = $userID";
                   $result1 = mysqli_query($dbconn, $query1);
@@ -101,6 +102,7 @@
                   echo "<td> $employeeID </td>";
                   echo "<td> $firstname </td>";
                   echo "<td> $lastname </td>";
+                  echo "<td> $email </td>";
                   echo "<td> $modulename </td>";
                   echo "</tr>";
                 }
