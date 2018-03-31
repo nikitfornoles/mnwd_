@@ -4,6 +4,12 @@
   if(!isset($_SESSION['user_id'])) {
     echo '<script>windows: location="index.php"</script>';
   }
+  else {
+    if ($_SESSION['usertype'] == 'staff') {
+      $msg = "Only the admin can access the 'manage staffs' page.";
+      echo '<script>windows: location="home.php?msg='.$msg.'"</script>';
+    }
+  }
 ?>
 
 <?php

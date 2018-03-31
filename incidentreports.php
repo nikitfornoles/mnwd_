@@ -4,6 +4,14 @@
   if(!isset($_SESSION['user_id'])) {
     echo '<script>windows: location="index.php"</script>';
   }
+  else {
+    if ($_SESSION['usertype'] == 'staff') {
+      if ($_SESSION['modulename'] != 'incident report') {
+        $msg = "You do not have the permission to access the incident reports page.";
+        echo '<script>windows: location="home.php?msg='.$msg.'"</script>';
+      }
+    }
+  }
 ?>
 
 <?php

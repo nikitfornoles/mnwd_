@@ -60,9 +60,9 @@ Google Password:	ytrewq1234
 Birthday:			January 1, 1960
 Gender:				Male
 Phone No:			+639484641132
-Username:			
+Username:			Dela Cruz_Jua1
 APP Password:		
-	laptop:			59f84d602bb1e
+	laptop:			5abf72ac8160b
 	000webhost:	
 
 --------------------------------------------
@@ -76,7 +76,7 @@ Gender:				Female
 Phone No:			+639484641132
 Username:			Buendia_Byp1
 APP Password:		
-	laptop:			59f8749f21bde
+	laptop:			5abf67871a901
 	000webhost:	
 
 --------------------------------------------
@@ -88,9 +88,9 @@ Google Password:	shotgunshutgone
 Birthday:			November 2, 1992
 Gender:				Female
 Phone No:			+639484641132
-Username:			
+Username:			Dy_Eff1
 APP Password:		
-	laptop:		
+	laptop:			5abf63c067f22
 	000webhost:	
 
 

@@ -24,7 +24,6 @@
 				$firstname = $row['firstname'];
 				$lastname = $row['lastname'];
 				$usertype = $row['usertype'];
-				$staffinfoid = $row['staffinfoid'];
 
 				if ($usertype == 'admin') {
 					session_start();
@@ -36,10 +35,11 @@
 				}
 
 				else {
-					$sql = "SELECT * FROM `staffinfo` WHERE `staffinfoid` = $staffinfoid";
-					$result = mysqli_query($dbconn, $sql);
-					$row = mysqli_fetch_array($result);
-					$modulename = $row['modulename'];
+					$sql1 = "SELECT * FROM `staffinfo` WHERE `userid` = $userid";
+					$result1 = mysqli_query($dbconn, $sql1);
+					$row1 = mysqli_fetch_array($result1);
+
+					$modulename = $row1['modulename'];
 
 					session_start();
 					$_SESSION['user_id'] = $userid;
