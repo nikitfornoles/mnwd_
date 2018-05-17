@@ -23,7 +23,7 @@
 
 		$sum = 0;
 		$count = 0;
-		$latestbilldate;
+		$latestbilldate = null;
 
 		while ($row = mysqli_fetch_array($result)) {
 			$billingdate = $row['billingdate'];

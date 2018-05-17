@@ -78,6 +78,11 @@
 		return $billamount;
 	}
 
+	function isSeniorCitizen ($seniorcitizen, $predicted_usage, $billamount, $dbconn) {
+		list ($billamount, $discount_amount, $discount_rate) = computeDiscount ($seniorcitizen, $predicted_usage, $billamount, $dbconn);
+		return $billamount;
+	}
+
 	function computeDiscount ($type, $cubicMeterUsed, $billamount, $dbconn) {
 		$discount_amount = 0;
 		$discount_rate = 0;
