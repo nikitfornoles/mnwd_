@@ -127,7 +127,7 @@
               include 'connect.php';
               $query = "SELECT * FROM `employee` WHERE `employeeid` NOT IN (SELECT `employeeid` FROM `staffinfo`)";
               $result = mysqli_query($dbconn, $query);
-              $count = mysqli_num_rows($result);
+              $count = $result? mysqli_num_rows($result) : 0;
 
               echo "<div class='templatemo-content-widget no-padding'>";
               echo "<div class='panel panel-default table-responsive'>";

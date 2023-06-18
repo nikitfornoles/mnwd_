@@ -164,7 +164,7 @@
 
 <script type="text/javascript">
   <?php
-    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $connect = mysqli_connect("localhost", "nikit", "nikit1234", "mnwd");
     $query = "SELECT `classcode`, count(*) AS `number` FROM `account` GROUP BY `classcode`";
     $result = mysqli_query($connect, $query);
   ?>
@@ -200,7 +200,7 @@
 
 <script type="text/javascript">
   <?php
-    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $connect = mysqli_connect("localhost", "nikit", "nikit1234", "mnwd");
     $query = "SELECT `activated`, count(*) AS `number` FROM `account` GROUP BY `activated`";
     $result = mysqli_query($connect, $query);
   ?>
@@ -236,7 +236,7 @@
 
 <script type="text/javascript">
   <?php
-    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $connect = mysqli_connect("localhost", "nikit", "nikit1234", "mnwd");
     $query = "SELECT `registered`, count(*) AS `number` FROM `user` GROUP BY `registered`";
     $result = mysqli_query($connect, $query);
   ?>
@@ -277,7 +277,7 @@
 
 <script type="text/javascript">
   <?php
-    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $connect = mysqli_connect("localhost", "nikit", "nikit1234", "mnwd");
     $query = "SELECT `usertype`, count(*) AS `number` FROM `user` GROUP BY `usertype`";
     $result = mysqli_query($connect, $query);
   ?>
@@ -308,7 +308,7 @@
 
 <script type="text/javascript">
   <?php
-    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $connect = mysqli_connect("localhost", "nikit", "nikit1234", "mnwd");
     $query = "SELECT `consumption`, SUM(consumption) AS `cum` FROM `reading` GROUP BY MONTH(`billingdate`)";
     $result = mysqli_query($connect, $query);
   ?>
@@ -339,7 +339,7 @@
 
 <script type="text/javascript">
   <?php
-    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $connect = mysqli_connect("localhost", "nikit", "nikit1234", "mnwd");
     $query = "SELECT `consumption`, SUM(`consumption`) AS `cum` FROM `reading` GROUP BY YEAR(`billingdate`)";
     $result = mysqli_query($connect, $query);
   ?>

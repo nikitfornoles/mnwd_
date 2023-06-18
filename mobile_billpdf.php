@@ -2,7 +2,7 @@
 	require 'fpdf/fpdf.php';
 	require_once('security_check.php');
 
-	$dbconn = mysqli_connect('localhost', 'root', '', 'mnwd');
+	$dbconn = mysqli_connect('localhost', 'nikit', 'nikit1234', 'mnwd');
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$accountid = test_input($_POST['accountid']);

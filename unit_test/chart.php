@@ -155,7 +155,7 @@ bar, column, line, area, stepped area, bubble, pie, donut, combo, candlestick, h
 
 <script type="text/javascript">
   <?php
-    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $connect = mysqli_connect("localhost", "nikit", "nikit1234", "mnwd");
     $query = "SELECT `classcode`, count(*) AS `number` FROM `account` GROUP BY `classcode`";
     $result = mysqli_query($connect, $query);
   ?>
@@ -191,7 +191,7 @@ bar, column, line, area, stepped area, bubble, pie, donut, combo, candlestick, h
 
 <script type="text/javascript">
   <?php
-    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $connect = mysqli_connect("localhost", "nikit", "nikit1234", "mnwd");
     $query = "SELECT `activated`, count(*) AS `number` FROM `account` GROUP BY `activated`";
     $result = mysqli_query($connect, $query);
   ?>
@@ -227,7 +227,7 @@ bar, column, line, area, stepped area, bubble, pie, donut, combo, candlestick, h
 
 <script type="text/javascript">
   <?php
-    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $connect = mysqli_connect("localhost", "nikit", "nikit1234", "mnwd");
     $query = "SELECT `registered`, count(*) AS `number` FROM `user` GROUP BY `registered`";
     $result = mysqli_query($connect, $query);
   ?>
@@ -268,7 +268,7 @@ bar, column, line, area, stepped area, bubble, pie, donut, combo, candlestick, h
 
 <script type="text/javascript">
   <?php
-    $connect = mysqli_connect("localhost", "root", "", "mnwd");
+    $connect = mysqli_connect("localhost", "nikit", "nikit1234", "mnwd");
     $query = "SELECT `usertype`, count(*) AS `number` FROM `user` GROUP BY `usertype`";
     $result = mysqli_query($connect, $query);
   ?>
@@ -299,7 +299,7 @@ bar, column, line, area, stepped area, bubble, pie, donut, combo, candlestick, h
 
 <script type="text/javascript">
   <?php
-    $connect = mysqli_connect("localhost", "root", "", "test");
+    $connect = mysqli_connect("localhost", "nikit", "nikit1234", "test");
     $query = "SELECT `gender`, count(*) AS `number` FROM `tbl_employee` GROUP BY `gender`";
     $result = mysqli_query($connect, $query);
   ?>
@@ -331,7 +331,7 @@ bar, column, line, area, stepped area, bubble, pie, donut, combo, candlestick, h
 <!--
 <script type="text/javascript">
   <?php
-    $connect = mysqli_connect("localhost", "root", "", "test");
+    $connect = mysqli_connect("localhost", "nikit", "nikit1234", "test");
     $query = "SELECT `age`, count(*) AS `number` FROM `tbl_employee` GROUP BY `age`";
     $result = mysqli_query($connect, $query);
   ?>
@@ -363,7 +363,7 @@ bar, column, line, area, stepped area, bubble, pie, donut, combo, candlestick, h
 
 <script type="text/javascript">
   <?php
-    $connect = mysqli_connect("localhost", "root", "", "helpmate");
+    $connect = mysqli_connect("localhost", "nikit", "nikit1234", "helpmate");
     $query = "SELECT `usertype`, count(*) AS `number` FROM `user` GROUP BY `usertype`";
     $result = mysqli_query($connect, $query);
   ?>

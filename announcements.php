@@ -143,7 +143,7 @@
               include 'connect.php'; 
               $query = "SELECT * FROM `announcement` ORDER BY `expiration_date` ASC";
               $result = mysqli_query($dbconn, $query);
-              $count = mysqli_num_rows($result);
+              $count = $result? mysqli_num_rows($result) : 0;
 
               echo "<div class='templatemo-content-widget no-padding'><div class='panel panel-default table-responsive'><table class = 'table table-striped table-bordered templatemo-user-table'>";
               echo "<thead><tr><td>Announcement</td><td>Expiration Date</td></tr></thead>";

@@ -1,8 +1,10 @@
 <?php
 	$server = "localhost";
-	$user = "root";
-	$password = "";
+	$user = "nikit";
+	$password = "nikit1234";
 	$database = "mnwd";
+	$port = "5486";
+	// $url = "mysql://${{ MYSQLUSER }}:${{ MYSQLPASSWORD }}@${{ MYSQLHOST }}:${{ MYSQLPORT }}/${{ MYSQLDATABASE }}";
 
 	// Create connection
 	$conn = mysqli_connect($server, $user, $password);
